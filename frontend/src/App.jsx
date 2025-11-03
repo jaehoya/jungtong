@@ -6,6 +6,7 @@ import GameSelection from './components/GameSelection';
 import TimingGame from './components/TimingGame';
 import FastHandGame from './components/FastHandGame';
 import Leaderboard from './components/Leaderboard';
+import './index.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthToken());
