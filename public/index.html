@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jungtong Web Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jungtong Web Game</h1>
+
+        <div id="auth-section">
+            <h2>Login / Register</h2>
+            <form id="auth-form">
+                <input type="text" id="name" placeholder="Name (for registration)">
+                <input type="text" id="studentId" placeholder="Student ID" required>
+                <button type="submit" id="login-btn">Login</button>
+                <button type="button" id="register-btn">Register</button>
+            </form>
+            <p id="auth-message"></p>
+        </div>
+
+        <div id="game-selection" style="display: none;">
+            <h2>Select a Game</h2>
+            <button id="timing-game-btn">Timing Game</button>
+            <button id="fast-hand-game-btn">Fast Hand Game</button>
+            <button id="logout-btn">Logout</button>
+        </div>
+
+        <div id="game-area" style="display: none;">
+            <!-- Game content will be loaded here -->
+            <h2 id="game-title"></h2>
+            <div id="game-content">
+                <div id="timing-game-container" style="display: none;">
+                    <h3>Timing Game - Round <span id="timing-game-round">1</span></h3>
+                    <p>Goal: Stop the timer as close to 7.77 seconds as possible!</p>
+                    <div id="timer-display">0.000</div>
+                    <button id="start-timing-game-btn">Start</button>
+                    <button id="stop-timing-game-btn" style="display: none;">Stop</button>
+                    <p id="timing-game-message"></p>
+                    <button id="next-round-btn" style="display: none;">Next Round</button>
+                    <button id="view-leaderboard-btn" style="display: none;">View Leaderboard</button>
+                </div>
+
+                <div id="fast-hand-game-container" style="display: none;">
+                    <h3>Fast Hand Game - Round <span id="fast-hand-game-round">1</span></h3>
+                    <p id="fast-hand-game-instruction"></p>
+                    <div id="fast-hand-game-display">Score: <span id="fast-hand-game-score">0</span></div>
+                    <button id="fast-hand-game-button">Click Me!</button>
+                    <p id="fast-hand-game-message"></p>
+                    <button id="fast-hand-game-next-round-btn" style="display: none;">Next Round</button>
+                    <button id="fast-hand-game-view-leaderboard-btn" style="display: none;">View Leaderboard</button>
+                </div>
+            </div>
+            <button id="back-to-selection">Back to Game Selection</button>
+        </div>
+
+        <div id="leaderboard-area" style="display: none;">
+            <h2>Leaderboard</h2>
+            <div id="leaderboard-content"></div>
+            <button id="back-to-game">Back to Game</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
