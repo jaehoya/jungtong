@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { login, register, setAuthToken } from '../services/api';
+
+const Auth = ({ setIsAuthenticated }) => {
+  const [name, setName] = useState('');
+  const [studentId, setStudentId] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      const data = await login(studentId);
+      if (data.token) {
+        setAuthToken(data.token);
+        setIsAuthenticated(true);
+      } else {
+        setMessage(data.msg || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage('Server error during login');
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      const data = await register(name, studentId);
+      if (data.token) {
+        setAuthToken(data.token);
+        setIsAuthenticated(true);
+      } else {
+        setMessage(data.msg || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Register error:', error);
+      setMessage('Server error during registration');
+    }
+  };
+
+  return (
+    <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+      <h2 className="text-2xl font-bold mb-6 text-center">Login / Register</h2>
+      <form className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300">Name (for registration)</label>
+          <input
+            type="text"
+            id="name"
+            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="studentId" className="block text-sm font-medium text-gray-300">Student ID</label>
+          <input
+            type="text"
+            id="studentId"
+            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+            required
+          />
+        </div>
+        <div className="flex justify-between space-x-4">
+          <button
+            type="submit"
+            onClick={handleLogin}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            onClick={handleRegister}
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+      {message && <p className="mt-4 text-center text-red-400">{message}</p>}
+    </div>
+  );
+};
+
+export default Auth;
