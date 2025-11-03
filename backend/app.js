@@ -8,7 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // CORS Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : '*',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
