@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-auth-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ gameType, round, score }),
             });
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch(`/api/game/leaderboard/${gameType}/${round}`, {
                 headers: {
-                    'x-auth-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             const data = await res.json();

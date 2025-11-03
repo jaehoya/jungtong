@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>순위 보기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>순위 보기</h1>
+    <div class="selection-container">
+      <select id="gameType">
+        <option value="timing_game">타이밍 게임</option>
+        <option value="fast_hand_game">순발력 게임</option>
+      </select>
+      <select id="round">
+        <option value="1">1라운드</option>
+        <option value="2">2라운드</option>
+        <option value="3">3라운드</option>
+      </select>
+      <button id="searchBtn">조회</button>
+    </div>
+    <table id="rankingTable">
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>이름</th>
+          <th>학번</th>
+          <th>점수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Ranking data will be inserted here -->
+      </tbody>
+    </table>
+    <a href="index.html">메인으로 돌아가기</a>
+  </div>
+  <script src="ranking.js"></script>
+</body>
+</html>
