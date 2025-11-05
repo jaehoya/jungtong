@@ -4,6 +4,7 @@ const auth = require('../middleware/authMiddleware');
 const GameScore = require('../models/GameScore');
 const User = require('../models/User');
 
+
 // Submit Game Score
 router.post('/score', auth, async (req, res) => {
   const { gameType, round, score } = req.body;
@@ -24,6 +25,7 @@ router.post('/score', auth, async (req, res) => {
   }
 });
 
+
 // Get Leaderboard for a specific game and round
 router.get('/leaderboard/:gameType/:round', auth, async (req, res) => {
   try {
@@ -42,6 +44,7 @@ router.get('/leaderboard/:gameType/:round', auth, async (req, res) => {
   }
 });
 
+
 // Admin route to start a game (example - this would be more complex in a real app)
 router.post('/admin/start-game', auth, async (req, res) => {
   try {
@@ -57,5 +60,6 @@ router.post('/admin/start-game', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 
 module.exports = router;

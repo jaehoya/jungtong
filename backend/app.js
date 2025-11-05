@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 // Define Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/game', require('./routes/game'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
