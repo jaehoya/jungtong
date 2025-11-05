@@ -7,7 +7,12 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // Secret for JWT (should be in .env in a real app)
-const jwtSecret = process.env.JWT_SECRET; 
+const jwtSecret = process.env.JWT_SECRET;
+
+if (!jwtSecret) {
+  console.error('FATAL ERROR: JWT_SECRET is not defined.');
+  process.exit(1);
+}
 
 // Login
 router.post('/login', async (req, res) => {

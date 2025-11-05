@@ -62,7 +62,7 @@ const Leaderboard = () => {
               <th className="px-4 py-2">순위</th>
               <th className="px-4 py-2">이름</th>
               <th className="px-4 py-2">학번</th>
-              <th className="px-4 py-2">{gameType === 'timing_game' ? '오차 시간' : '점수'}</th>
+              <th className="px-4 py-2">오차 시간</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +72,7 @@ const Leaderboard = () => {
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2">{entry.user.name}</td>
                   <td className="px-4 py-2">{entry.user.studentId}</td>
-                  <td className="px-4 py-2">{gameType === 'timing_game' ? entry.score.toFixed(3) : entry.score}</td>
+                  <td className="px-4 py-2">{entry.score.toFixed(3)}</td>
                 </tr>
               ))
             ) : (
