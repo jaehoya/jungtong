@@ -42,10 +42,10 @@ const Auth = ({ setIsAuthenticated }) => {
 
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
-      <h2 className="text-2xl font-bold mb-6 text-center">Login / Register</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">정통인의 밤</h2>
       <form className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-300">Name (for registration)</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300">이름</label>
           <input
             type="text"
             id="name"
@@ -55,7 +55,7 @@ const Auth = ({ setIsAuthenticated }) => {
           />
         </div>
         <div>
-          <label htmlFor="studentId" className="block text-sm font-medium text-gray-300">Student ID</label>
+          <label htmlFor="studentId" className="block text-sm font-medium text-gray-300">학번</label>
           <input
             type="text"
             id="studentId"
@@ -71,14 +71,7 @@ const Auth = ({ setIsAuthenticated }) => {
             onClick={handleLogin}
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Login
-          </button>
-          <button
-            type="button"
-            onClick={handleRegister}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-          >
-            Register
+            로그인
           </button>
         </div>
       </form>

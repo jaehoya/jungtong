@@ -62,14 +62,14 @@ const FastHandGame = () => {
 
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
-      <h2 className="text-3xl font-bold mb-4">Fast Hand Game - Round {round}</h2>
-      <p className="mb-4">Click the button as many times as you can in 10 seconds!</p>
-      <div className="text-4xl font-bold mb-4">Score: {score}</div>
-      <div className="text-2xl mb-6">Time Left: {timeLeft}s</div>
+      <h2 className="text-3xl font-bold mb-4">손 빠르니?? -라운드 {round}</h2>
+      <p className="mb-4">10초 안에 가장 많이 버튼을 누르세요!</p>
+      <div className="text-4xl font-bold mb-4">점수: {score}</div>
+      <div className="text-2xl mb-6">남은시간: {timeLeft}s</div>
 
       {!isGameRunning && !isGameFinished && (
         <button onClick={startGame} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md">
-          Start Game
+          시작하기
         </button>
       )}
 
@@ -84,16 +84,16 @@ const FastHandGame = () => {
       {isGameFinished && (
         <div className="mt-4 space-y-2">
           <button onClick={handleNextRound} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-            {round < 3 ? 'Next Round' : 'Finish Game'}
+            {round < 3 ? '다음 라운드' : '게임 종료'}
           </button>
           <button onClick={() => navigate('/leaderboard')} className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md">
-            View Leaderboard
+            순위보기
           </button>
         </div>
       )}
 
       <button onClick={() => navigate('/games')} className="mt-8 text-indigo-400 hover:text-indigo-300">
-        Back to Game Selection
+        게임 선택으로 돌아가기
       </button>
     </div>
   );

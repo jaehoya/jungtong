@@ -12,31 +12,31 @@ const GameSelection = ({ setIsAuthenticated }) => {
 
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-      <h2 className="text-2xl font-bold mb-6">Select a Game</h2>
+      <h2 className="text-2xl font-bold mb-6">게임 선택</h2>
       <div className="space-y-4">
         <button
           onClick={() => navigate('/timing-game')}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-          Timing Game
+          지금이니!!
         </button>
         <button
           onClick={() => navigate('/fast-hand-game')}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
         >
-          Fast Hand Game
+          손 빠르니??
         </button>
         <button
           onClick={() => navigate('/leaderboard')}
           className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
         >
-          View Leaderboard
+          순위 보기
         </button>
         <button
           onClick={handleLogout}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-md mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          className="w-1/4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-md mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
-          Logout
+          로그아웃
         </button>
       </div>
     </div>
