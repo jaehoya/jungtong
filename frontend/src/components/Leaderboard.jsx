@@ -35,34 +35,34 @@ const Leaderboard = () => {
 
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl w-full">
-      <h1 className="text-3xl font-bold mb-6 text-center">Leaderboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">리더보드</h1>
       <div className="flex justify-center items-center space-x-4 mb-6">
         <select value={gameType} onChange={(e) => setGameType(e.target.value)} className="bg-gray-700 text-white p-2 rounded-md">
-          <option value="timing_game">Timing Game</option>
-          <option value="fast_hand_game">Fast Hand Game</option>
+          <option value="timing_game">지금이니!!</option>
+          <option value="fast_hand_game">손 빠르니??</option>
         </select>
         <select value={round} onChange={(e) => setRound(e.target.value)} className="bg-gray-700 text-white p-2 rounded-md">
-          <option value="1">Round 1</option>
-          <option value="2">Round 2</option>
-          <option value="3">Round 3</option>
+          <option value="1">라운드 1</option>
+          <option value="2">라운드 2</option>
+          <option value="3">라운드 3</option>
         </select>
         <button onClick={handleSearch} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md">
-          Search
+          검색
         </button>
       </div>
 
       {loading ? (
-        <p className="text-center">Loading...</p>
+        <p className="text-center">로딩...</p>
       ) : error ? (
         <p className="text-center text-red-400">{error}</p>
       ) : (
         <table className="w-full text-left table-auto">
           <thead>
             <tr className="bg-gray-700">
-              <th className="px-4 py-2">Rank</th>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Student ID</th>
-              <th className="px-4 py-2">Score</th>
+              <th className="px-4 py-2">순위</th>
+              <th className="px-4 py-2">이름</th>
+              <th className="px-4 py-2">학번</th>
+              <th className="px-4 py-2">{gameType === 'timing_game' ? '오차 시간' : '점수'}</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +72,7 @@ const Leaderboard = () => {
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2">{entry.user.name}</td>
                   <td className="px-4 py-2">{entry.user.studentId}</td>
-                  <td className="px-4 py-2">{entry.score.toFixed(3)}</td>
+                  <td className="px-4 py-2">{gameType === 'timing_game' ? entry.score.toFixed(3) : entry.score}</td>
                 </tr>
               ))
             ) : (
@@ -85,7 +85,7 @@ const Leaderboard = () => {
       )}
 
       <button onClick={() => navigate('/games')} className="mt-8 text-indigo-400 hover:text-indigo-300">
-        Back to Game Selection
+        돌아가기
       </button>
     </div>
   );
