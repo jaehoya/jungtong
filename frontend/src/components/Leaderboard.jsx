@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchLeaderboard, resetLeaderboard, addUser, getAuthToken } from '../services/api';
+import { fetchLeaderboard } from '../services/api';
 
 const Leaderboard = () => {
   const navigate = useNavigate();
@@ -9,21 +9,6 @@ const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [newUserName, setNewUserName] = useState('');
-  const [newUserStudentId, setNewUserStudentId] = useState('');
-
-  useEffect(() => {
-    const token = getAuthToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setIsAdmin(payload.user.isAdmin);
-      } catch (e) {
-        console.error('Invalid token', e);
-      }
-    }
-  }, []);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -42,31 +27,6 @@ const Leaderboard = () => {
       setLeaderboard([]);
     }
     setLoading(false);
-  };
-
-  const handleReset = async () => {
-    if (window.confirm('Are you sure you want to reset the leaderboard?')) {
-      try {
-        await resetLeaderboard();
-        handleSearch();
-      } catch (err) {
-        console.error('Error resetting leaderboard', err);
-        setError('Failed to reset leaderboard');
-      }
-    }
-  };
-
-  const handleAddUser = async (e) => {
-    e.preventDefault();
-    try {
-      await addUser(newUserName, newUserStudentId);
-      setNewUserName('');
-      setNewUserStudentId('');
-      alert('User added successfully');
-    } catch (err) {
-      console.error('Error adding user', err);
-      setError('Failed to add user');
-    }
   };
 
   useEffect(() => {
@@ -90,36 +50,6 @@ const Leaderboard = () => {
           검색
         </button>
       </div>
-
-      {isAdmin && (
-        <div className="bg-gray-700 p-4 rounded-lg mb-6">
-          <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
-          <div className="flex space-x-4">
-            <form onSubmit={handleAddUser} className="flex-grow flex space-x-2">
-              <input
-                type="text"
-                placeholder="New user name"
-                value={newUserName}
-                onChange={(e) => setNewUserName(e.target.value)}
-                className="bg-gray-800 text-white p-2 rounded-md w-full"
-              />
-              <input
-                type="text"
-                placeholder="New user student ID"
-                value={newUserStudentId}
-                onChange={(e) => setNewUserStudentId(e.target.value)}
-                className="bg-gray-800 text-white p-2 rounded-md w-full"
-              />
-              <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md">
-                Add User
-              </button>
-            </form>
-            <button onClick={handleReset} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">
-              Reset Leaderboard
-            </button>
-          </div>
-        </div>
-      )}
 
       {loading ? (
         <p className="text-center">로딩...</p>

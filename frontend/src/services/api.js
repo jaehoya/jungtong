@@ -45,6 +45,20 @@ export const getAuthToken = () => {
   return localStorage.getItem('token');
 };
 
+export const decodeToken = (token) => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+    return null;
+  }
+};
+
 export const resetLeaderboard = async () => {
   const response = await fetch(`${API_BASE_URL}/admin/leaderboard`, {
     method: 'DELETE',
@@ -53,11 +67,11 @@ export const resetLeaderboard = async () => {
   return response.json();
 };
 
-export const addUser = async (name, studentId) => {
+export const addUser = async (name, studentId, isAdmin) => {
   const response = await fetch(`${API_BASE_URL}/admin/users`, {
     method: 'POST',
     headers: getAuthHeaders(),
-    body: JSON.stringify({ name, studentId }),
+    body: JSON.stringify({ name, studentId, isAdmin }),
   });
   return response.json();
 };

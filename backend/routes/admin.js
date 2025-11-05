@@ -9,7 +9,7 @@ const User = require('../models/User');
 // @desc    Add a new user
 // @access  Admin
 router.post('/users', [auth, admin], async (req, res) => {
-  const { name, studentId } = req.body;
+  const { name, studentId, isAdmin } = req.body;
 
   try {
     let user = await User.findOne({ studentId });
@@ -20,6 +20,7 @@ router.post('/users', [auth, admin], async (req, res) => {
     user = new User({
       name,
       studentId,
+      isAdmin: isAdmin || false,
     });
 
     await user.save();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setAuthToken } from '../services/api';
 
-const GameSelection = ({ setIsAuthenticated }) => {
+const GameSelection = ({ setIsAuthenticated, isAdmin }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -32,6 +32,14 @@ const GameSelection = ({ setIsAuthenticated }) => {
         >
           순위 보기
         </button>
+        {isAdmin && (
+          <button
+            onClick={() => navigate('/admin')}
+            className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+          >
+            어드민 페이지
+          </button>
+        )}
         <button
           onClick={handleLogout}
           className="w-1/4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-md mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"

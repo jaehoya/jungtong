@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { login, setAuthToken } from '../services/api';
 
 const Auth = ({ setIsAuthenticated }) => {
