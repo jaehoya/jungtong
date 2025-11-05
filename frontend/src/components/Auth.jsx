@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { login, register, setAuthToken } from '../services/api';
+
+import { login, setAuthToken } from '../services/api';
 
 const Auth = ({ setIsAuthenticated }) => {
-  const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [message, setMessage] = useState('');
 
@@ -23,37 +23,10 @@ const Auth = ({ setIsAuthenticated }) => {
     }
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setMessage('');
-    try {
-      const data = await register(name, studentId);
-      if (data.token) {
-        setAuthToken(data.token);
-        setIsAuthenticated(true);
-      } else {
-        setMessage(data.msg || 'Registration failed');
-      }
-    } catch (error) {
-      console.error('Register error:', error);
-      setMessage('Server error during registration');
-    }
-  };
-
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
       <h2 className="text-2xl font-bold mb-6 text-center">정통인의 밤</h2>
       <form className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-300">이름</label>
-          <input
-            type="text"
-            id="name"
-            className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
         <div>
           <label htmlFor="studentId" className="block text-sm font-medium text-gray-300">학번</label>
           <input

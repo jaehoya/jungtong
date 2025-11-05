@@ -17,15 +17,6 @@ export const login = async (studentId) => {
   return response.json();
 };
 
-export const register = async (name, studentId) => {
-  const response = await fetch(`${API_BASE_URL}/auth/register`, {
-    method: 'POST',
-    headers: getAuthHeaders(),
-    body: JSON.stringify({ name, studentId }),
-  });
-  return response.json();
-};
-
 export const submitScore = async (gameType, round, score) => {
   const response = await fetch(`${API_BASE_URL}/game/score`, {
     method: 'POST',
@@ -52,4 +43,21 @@ export const setAuthToken = (token) => {
 
 export const getAuthToken = () => {
   return localStorage.getItem('token');
+};
+
+export const resetLeaderboard = async () => {
+  const response = await fetch(`${API_BASE_URL}/admin/leaderboard`, {
+    method: 'DELETE',
+    headers: getAuthHeaders(),
+  });
+  return response.json();
+};
+
+export const addUser = async (name, studentId) => {
+  const response = await fetch(`${API_BASE_URL}/admin/users`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ name, studentId }),
+  });
+  return response.json();
 };
