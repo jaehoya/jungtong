@@ -67,7 +67,7 @@ const GameSelection = () => {
           </div>
         )}
         {!gameState.timingGame.isVisible && !gameState.fastHandGame.isVisible && (
-            <p>어드민이 게임을 공개하기를 기다리고 있습니다...</p>
+            <p>MC가 게임을 공개하기를 기다리고 있습니다...</p>
         )}
       </div>
     </div>

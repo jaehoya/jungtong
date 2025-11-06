@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Auth from './components/Auth';
 import GameSelection from './components/GameSelection';
-import AdminPanel from './components/AdminPanel';
+import MCPanel from './components/AdminPanel'; // Renamed import
 import { getAuthToken, setAuthToken, decodeToken } from './services/api';
 import { GameStateProvider } from './components/GameStateContext';
 
@@ -42,7 +42,7 @@ function App() {
               {user && <p className="mr-4">환영합니다, {user.name}님!</p>}
             </div>
             <GameSelection />
-            {user && user.isAdmin && <AdminPanel />}
+            {user && user.isAdmin && <MCPanel />}
             <div className="mt-8 text-center">
               <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 로그아웃

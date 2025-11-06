@@ -21,7 +21,7 @@ const AdminPanel = () => {
         },
         body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error('Failed to perform admin action');
+      if (!response.ok) throw new Error('Failed to perform MC action');
     } catch (error) {
       console.error(error.message);
     }
@@ -60,11 +60,11 @@ const AdminPanel = () => {
     }
   };
 
-  if (!gameState) return <div>Loading admin panel...</div>;
+  if (!gameState) return <div>Loading MC panel...</div>;
 
   return (
     <div className="mt-8 p-4 bg-gray-800 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">어드민 패널</h2>
+      <h2 className="text-2xl font-bold mb-4">MC 패널</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="p-4 bg-gray-700 rounded">
@@ -107,7 +107,7 @@ const AdminPanel = () => {
           <input type="text" placeholder="학번" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="p-2 rounded bg-gray-600" />
           <label className="flex items-center">
             <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} className="mr-2" />
-            어드민으로 설정
+            MC로 설정
           </label>
           <button type="submit" className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">사용자 추가</button>
         </form>

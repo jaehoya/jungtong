@@ -5,12 +5,12 @@ const adminMiddleware = require('../middleware/adminMiddleware');
 const User = require('../models/User');
 const GameScore = require('../models/GameScore');
 
-// Middleware stack for admin routes
+// Middleware stack for MC routes
 const adminAuth = [authMiddleware, adminMiddleware];
 
 // @route   POST api/admin/users
 // @desc    Add a new user
-// @access  Private (Admin)
+// @access  Private (MC)
 router.post('/users', adminAuth, async (req, res) => {
   const { name, studentId, isAdmin } = req.body;
   try {
@@ -29,7 +29,7 @@ router.post('/users', adminAuth, async (req, res) => {
 
 // @route   DELETE api/admin/leaderboard
 // @desc    Reset the leaderboard
-// @access  Private (Admin)
+// @access  Private (MC)
 router.delete('/leaderboard', adminAuth, async (req, res) => {
   try {
     await GameScore.deleteMany({});
@@ -42,7 +42,7 @@ router.delete('/leaderboard', adminAuth, async (req, res) => {
 
 // @route   POST api/admin/game/visibility
 // @desc    Set game visibility
-// @access  Private (Admin)
+// @access  Private (MC)
 router.post('/game/visibility', adminAuth, (req, res) => {
   const { gameType, isVisible } = req.body;
   if (req.gameState[gameType]) {
@@ -56,14 +56,15 @@ router.post('/game/visibility', adminAuth, (req, res) => {
 
 // @route   POST api/admin/game/set-round
 // @desc    Set the current round for a game
-// @access  Private (Admin)
+// @access  Private (MC)
 router.post('/game/set-round', adminAuth, (req, res) => {
   const { gameType, round } = req.body;
   if (req.gameState[gameType] && [1, 2, 3].includes(round)) {
     req.gameState[gameType].currentRound = round;
     req.io.emit('gameStateUpdate', req.gameState);
     res.json(req.gameState);
-  } else {
+  }
+  else {
     res.status(400).json({ msg: 'Invalid game type or round number' });
   }
 });
