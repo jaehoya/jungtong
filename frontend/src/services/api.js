@@ -8,13 +8,21 @@ const getAuthHeaders = () => {
   };
 };
 
+const handleResponse = async (response) => {
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.msg || 'An error occurred');
+  }
+  return data;
+};
+
 export const login = async (studentId) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ studentId }),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 export const submitScore = async (gameType, round, score) => {
@@ -23,14 +31,14 @@ export const submitScore = async (gameType, round, score) => {
     headers: getAuthHeaders(),
     body: JSON.stringify({ gameType, round, score }),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 export const fetchLeaderboard = async (gameType, round) => {
   const response = await fetch(`${API_BASE_URL}/game/leaderboard/${gameType}/${round}`, {
     headers: getAuthHeaders(),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 export const setAuthToken = (token) => {
@@ -59,12 +67,14 @@ export const decodeToken = (token) => {
   }
 };
 
+// --- MC Panel API Calls ---
+
 export const resetLeaderboard = async () => {
   const response = await fetch(`${API_BASE_URL}/admin/leaderboard`, {
     method: 'DELETE',
     headers: getAuthHeaders(),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 export const addUser = async (name, studentId, isAdmin) => {
@@ -73,5 +83,32 @@ export const addUser = async (name, studentId, isAdmin) => {
     headers: getAuthHeaders(),
     body: JSON.stringify({ name, studentId, isAdmin }),
   });
-  return response.json();
+  return handleResponse(response);
+};
+
+export const addUsersBulk = async (users) => {
+  const response = await fetch(`${API_BASE_URL}/admin/users/bulk`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(users),
+  });
+  return handleResponse(response);
+};
+
+export const setGameVisibility = async (gameType, isVisible) => {
+  const response = await fetch(`${API_BASE_URL}/admin/game/visibility`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ gameType, isVisible }),
+  });
+  return handleResponse(response);
+};
+
+export const setGameRound = async (gameType, round) => {
+  const response = await fetch(`${API_BASE_URL}/admin/game/set-round`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ gameType, round }),
+  });
+  return handleResponse(response);
 };

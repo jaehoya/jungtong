@@ -1,39 +1,36 @@
 import React, { useState } from 'react';
-import { resetLeaderboard, addUser } from '../services/api';
+import * as XLSX from 'xlsx';
+import {
+  addUser,
+  addUsersBulk,
+  resetLeaderboard,
+  setGameVisibility,
+  setGameRound
+} from '../services/api';
 import { useGameState } from './GameStateContext';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 const AdminPanel = () => {
   const { gameState } = useGameState();
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [bulkUsersFile, setBulkUsersFile] = useState(null);
 
-  const handleApiCall = async (url, body) => {
+  const handleVisibilityToggle = async (gameType) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
-      if (!response.ok) throw new Error('Failed to perform MC action');
+      const isVisible = !gameState[gameType].isVisible;
+      await setGameVisibility(gameType, isVisible);
     } catch (error) {
-      console.error(error.message);
+      alert(`오류: ${error.message}`);
     }
   };
 
-  const handleVisibilityToggle = (gameType) => {
-    const isVisible = !gameState[gameType].isVisible;
-    handleApiCall('/api/admin/game/visibility', { gameType, isVisible });
-  };
-
-  const handleSetRound = (gameType, round) => {
-    handleApiCall('/api/admin/game/set-round', { gameType, round });
+  const handleSetRound = async (gameType, round) => {
+    try {
+      await setGameRound(gameType, round);
+    } catch (error) {
+      alert(`오류: ${error.message}`);
+    }
   };
 
   const handleReset = async () => {
@@ -42,7 +39,7 @@ const AdminPanel = () => {
         await resetLeaderboard();
         alert('리더보드가 초기화되었습니다.');
       } catch (error) {
-        alert('초기화에 실패했습니다.');
+        alert(`초기화 실패: ${error.message}`);
       }
     }
   };
@@ -56,8 +53,36 @@ const AdminPanel = () => {
       setStudentId('');
       setIsAdmin(false);
     } catch (error) {
-      alert('사용자 추가에 실패했습니다.');
+      alert(`사용자 추가 실패: ${error.message}`);
     }
+  };
+
+  const handleBulkUpload = () => {
+    if (!bulkUsersFile) {
+      alert('엑셀 파일을 선택해주세요.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const json = XLSX.utils.sheet_to_json(worksheet, { header: ['name', 'studentId'] });
+        
+        const users = json.slice(1).map(user => ({ ...user, studentId: String(user.studentId) }));
+
+        const result = await addUsersBulk(users);
+        alert(`${result.msg} (추가: ${result.added}, 중복: ${result.duplicates})`);
+
+      } catch (error) {
+        console.error('엑셀 처리 중 오류 발생:', error);
+        alert(`일괄 등록 실패: ${error.message}`);
+      }
+    };
+    reader.readAsArrayBuffer(bulkUsersFile);
   };
 
   if (!gameState) return <div>Loading MC panel...</div>;
@@ -100,17 +125,26 @@ const AdminPanel = () => {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-700 rounded">
-        <h3 className="font-bold mb-2">사용자 추가</h3>
-        <form onSubmit={handleAddUser} className="flex flex-col space-y-2">
-          <input type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} className="p-2 rounded bg-gray-600" />
-          <input type="text" placeholder="학번" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="p-2 rounded bg-gray-600" />
-          <label className="flex items-center">
-            <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} className="mr-2" />
-            MC로 설정
-          </label>
-          <button type="submit" className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">사용자 추가</button>
-        </form>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="p-4 bg-gray-700 rounded">
+          <h3 className="font-bold mb-2">사용자 개별 추가</h3>
+          <form onSubmit={handleAddUser} className="flex flex-col space-y-2">
+            <input type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} className="p-2 rounded bg-gray-600" />
+            <input type="text" placeholder="학번" value={studentId} onChange={(e) => setStudentId(e.target.value)} className="p-2 rounded bg-gray-600" />
+            <label className="flex items-center">
+              <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} className="mr-2" />
+              MC로 설정
+            </label>
+            <button type="submit" className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">개별 추가</button>
+          </form>
+        </div>
+
+        <div className="p-4 bg-gray-700 rounded">
+          <h3 className="font-bold mb-2">사용자 일괄 등록 (엑셀)</h3>
+          <p className="text-sm text-gray-400 mb-2">엑셀 파일의 첫 번째 열은 이름, 두 번째 열은 학번이어야 합니다. (첫 행은 머리글로 제외됩니다)</p>
+          <input type="file" accept=".xlsx, .xls" onChange={(e) => setBulkUsersFile(e.target.files[0])} className="mb-2 w-full" />
+          <button onClick={handleBulkUpload} className="w-full bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">일괄 등록</button>
+        </div>
       </div>
     </div>
   );
