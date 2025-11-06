@@ -1,72 +1,57 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { setAuthToken, getAuthToken, decodeToken } from './services/api';
+import React, { useState, useEffect } from 'react';
 import Auth from './components/Auth';
 import GameSelection from './components/GameSelection';
-import TimingGame from './components/TimingGame';
-import FastHandGame from './components/FastHandGame';
-import Leaderboard from './components/Leaderboard';
-import AdminPanel from './components/AdminPanel';
-import './index.css';
+import MCPanel from './components/AdminPanel'; // Renamed import
+import { getAuthToken, setAuthToken, decodeToken } from './services/api';
+import { GameStateProvider } from './components/GameStateContext';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [token, setToken] = useState(getAuthToken());
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = getAuthToken();
-    console.log('Token from storage:', token);
     if (token) {
-      setIsAuthenticated(true);
-      const decoded = decodeToken(token);
-      console.log('Decoded token:', decoded);
-      if (decoded && decoded.user && decoded.user.isAdmin) {
-        console.log('Setting isAdmin to true');
-        setIsAdmin(true);
+      const decodedUser = decodeToken(token);
+      if (decodedUser) {
+        setUser(decodedUser.user); // Correctly set the nested user object
       } else {
-        console.log('Setting isAdmin to false');
-        setIsAdmin(false);
+        setUser(null);
       }
     } else {
-      setIsAuthenticated(false);
-      setIsAdmin(false);
+      setUser(null);
     }
-  }, [isAuthenticated]);
+  }, [token]);
+
+  const handleSetToken = (newToken) => {
+    setAuthToken(newToken);
+    setToken(newToken);
+  };
+
+  const handleLogout = () => {
+    handleSetToken(null);
+  };
 
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <div className="container mx-auto p-4">
-          <Routes>
-            <Route
-              path="/"
-              element={isAuthenticated ? <Navigate to="/games" /> : <Auth setIsAuthenticated={setIsAuthenticated} />}
-            />
-            <Route
-              path="/games"
-              element={isAuthenticated ? <GameSelection setIsAuthenticated={setIsAuthenticated} isAdmin={isAdmin} /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/timing-game"
-              element={isAuthenticated ? <TimingGame /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/fast-hand-game"
-              element={isAuthenticated ? <FastHandGame /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/leaderboard"
-              element={isAuthenticated ? <Leaderboard /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/admin"
-              element={isAuthenticated && isAdmin ? <AdminPanel /> : <Navigate to="/" />}
-            />
-            <Route path="*" element={<h1 className="text-3xl font-bold">404 Not Found</h1>} />
-          </Routes>
-        </div>
+    <GameStateProvider>
+      <div className="App bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+        {!token ? (
+          <Auth onLogin={handleSetToken} />
+        ) : (
+          <div className="w-full max-w-4xl mx-auto">
+            <div className="flex justify-end items-center mb-4">
+              {user && <p className="mr-4">환영합니다, {user.name}님!</p>}
+            </div>
+            <GameSelection />
+            {user && user.isAdmin && <MCPanel />}
+            <div className="mt-8 text-center">
+              <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                로그아웃
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-    </Router>
+    </GameStateProvider>
   );
 }
 
