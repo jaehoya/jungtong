@@ -16,6 +16,12 @@ router.get('/state', (req, res) => {
 router.post('/score', authMiddleware, async (req, res) => {
   const { gameType, round, score } = req.body;
   try {
+    // Check if the user has already played this round
+    const existingScore = await GameScore.findOne({ user: req.user.id, gameType, round });
+    if (existingScore) {
+      return res.status(400).json({ msg: 'You have already played this round' });
+    }
+
     const newScore = new GameScore({
       user: req.user.id,
       gameType,
@@ -25,7 +31,7 @@ router.post('/score', authMiddleware, async (req, res) => {
     const savedScore = await newScore.save();
     res.json(savedScore);
   } catch (err) {
-    console.error(err.message);
+    console.error('Score submission error:', err);
     res.status(500).send('Server Error');
   }
 });
@@ -36,8 +42,10 @@ router.post('/score', authMiddleware, async (req, res) => {
 router.get('/leaderboard/:gameType/:round', async (req, res) => {
   try {
     const { gameType, round } = req.params;
+    const sortOrder = gameType === 'timing_game' ? 1 : -1; // 1 for ascending, -1 for descending
+
     const leaderboard = await GameScore.find({ gameType, round })
-      .sort({ score: -1 })
+      .sort({ score: sortOrder })
       .limit(10)
       .populate('user', ['name', 'studentId']);
     res.json(leaderboard);

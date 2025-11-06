@@ -43,7 +43,7 @@ const FastHandGame = () => {
         setIsGameRunning(false);
         setFinished(true);
         try {
-          await submitScore('fastHandGame', currentRound, clicks);
+          await submitScore('fast_hand_game', currentRound, clicks);
         } catch (error) {
           alert('점수 등록에 실패했습니다.');
         }
@@ -83,7 +83,7 @@ const FastHandGame = () => {
   };
 
   if (showLeaderboard) {
-    return <Leaderboard gameType="fastHandGame" onBack={() => setShowLeaderboard(false)} />;
+    return <Leaderboard gameType="fast_hand_game" currentRound={currentRound} onBack={() => setShowLeaderboard(false)} />;
   }
 
   const renderGame = () => {

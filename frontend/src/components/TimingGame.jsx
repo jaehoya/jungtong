@@ -53,7 +53,7 @@ const TimingGame = () => {
     setIsGameRunning(false);
 
     try {
-      await submitScore('timingGame', currentRound, calculatedScore);
+      await submitScore('timing_game', currentRound, calculatedScore);
     } catch (error) {
       alert('점수 등록에 실패했습니다.');
     }
@@ -75,7 +75,7 @@ const TimingGame = () => {
   };
 
   if (showLeaderboard) {
-    return <Leaderboard gameType="timingGame" onBack={() => setShowLeaderboard(false)} />;
+    return <Leaderboard gameType="timing_game" currentRound={currentRound} onBack={() => setShowLeaderboard(false)} />;
   }
 
   return (
