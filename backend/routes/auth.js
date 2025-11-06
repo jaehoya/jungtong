@@ -27,6 +27,7 @@ router.post('/login', async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name, // Add name to payload
         isAdmin: user.isAdmin,
       },
     };

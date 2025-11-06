@@ -1,149 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
 import { submitScore } from '../services/api';
+import { useGameState } from './GameStateContext';
+import Leaderboard from './Leaderboard';
 
 const FastHandGame = () => {
-  const navigate = useNavigate();
-  const [round, setRound] = useState(1);
-  const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10);
+  const { gameState } = useGameState();
+  const [clicks, setClicks] = useState(0);
   const [isGameRunning, setIsGameRunning] = useState(false);
-  const [isGameFinished, setIsGameFinished] = useState(false);
-  const [message, setMessage] = useState('');
+  const [finished, setFinished] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
-  // Round 2: Button position
+  // Round specific state
   const [position, setPosition] = useState({ top: '50%', left: '50%' });
+  const [buttonColor, setButtonColor] = useState('bg-green-500');
 
-  // Round 3: Button color
-  const [buttonColor, setButtonColor] = useState('green');
-  const [gameInterval, setGameInterval] = useState(null);
+  const currentRound = gameState ? gameState.fastHandGame.currentRound : 1;
+  const timeLimit = currentRound === 2 || currentRound === 3 ? 20 : 10; // Rounds 2 & 3 are 20 seconds
+
+  const resetGameState = useCallback(() => {
+    setClicks(0);
+    setIsGameRunning(false);
+    setFinished(false);
+    setShowLeaderboard(false);
+    setTimeLeft(timeLimit);
+    setPosition({ top: '50%', left: '50%' });
+    setButtonColor('bg-green-500');
+  }, [timeLimit]);
 
   useEffect(() => {
-    if (isGameRunning && timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (isGameRunning && timeLeft === 0) {
-      endGame();
-    }
+    resetGameState();
+  }, [currentRound, resetGameState]);
 
-    // Cleanup interval on component unmount or game end
-    return () => {
-      if (gameInterval) {
-        clearInterval(gameInterval);
-      }
-    };
+  useEffect(() => {
+    let gameInterval;
+    if (isGameRunning && timeLeft > 0) {
+      gameInterval = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    } else if (isGameRunning && timeLeft === 0) {
+      (async () => {
+        setIsGameRunning(false);
+        setFinished(true);
+        try {
+          await submitScore('fastHandGame', currentRound, clicks);
+        } catch (error) {
+          alert('점수 등록에 실패했습니다.');
+        }
+      })();
+    }
+    return () => clearInterval(gameInterval);
   }, [isGameRunning, timeLeft]);
 
-  const startGame = () => {
-    setScore(0);
-    setTimeLeft(10);
-    setIsGameRunning(true);
-    setIsGameFinished(false);
-    setMessage('');
-
-    if (round === 2) {
-      const interval = setInterval(() => {
-        const top = Math.random() * 90 + '%';
-        const left = Math.random() * 90 + '%';
-        setPosition({ top, left });
-      }, 1000);
-      setGameInterval(interval);
-    }
-
-    if (round === 3) {
-      const interval = setInterval(() => {
-        setButtonColor(prevColor => prevColor === 'green' ? 'red' : 'green');
-      }, 800);
-      setGameInterval(interval);
-    }
-  };
-
-  const endGame = () => {
-    if (gameInterval) {
-      clearInterval(gameInterval);
-    }
-    setIsGameRunning(false);
-    setIsGameFinished(true);
-    setMessage(`Time's up! Your score: ${score}`);
-    submitScore('fast_hand_game', round, score);
-  };
-
-  const handleButtonClick = () => {
+  useEffect(() => {
+    let roundInterval;
     if (isGameRunning) {
-      if (round === 3) {
-        if (buttonColor === 'green') {
-          setScore(score + 1);
-        } else {
-          setScore(score - 1);
-        }
-      } else {
-        setScore(score + 1);
+      if (currentRound === 2) {
+        roundInterval = setInterval(() => {
+          setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
+        }, 1200);
+      } else if (currentRound === 3) {
+        roundInterval = setInterval(() => {
+          setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
+        }, 800);
       }
     }
+    return () => clearInterval(roundInterval);
+  }, [isGameRunning, currentRound]);
+
+  const handleStart = () => {
+    resetGameState();
+    setIsGameRunning(true);
   };
 
-  const handleNextRound = () => {
-    if (round < 3) {
-      setRound(round + 1);
-      resetGame();
+  const handleClick = () => {
+    if (!isGameRunning) return;
+    if (currentRound === 3) {
+      setClicks(prev => prev + (buttonColor === 'bg-green-500' ? 1 : -1));
     } else {
-      alert('Fast Hand Game Over! Check the leaderboard.');
-      navigate('/leaderboard');
+      setClicks(prev => prev + 1);
     }
   };
 
-  const resetGame = () => {
-    setScore(0);
-    setTimeLeft(10);
-    setIsGameRunning(false);
-    setIsGameFinished(false);
-    setMessage('');
+  if (showLeaderboard) {
+    return <Leaderboard gameType="fastHandGame" onBack={() => setShowLeaderboard(false)} />;
+  }
+
+  const renderGame = () => {
+    if (finished) {
+      return (
+        <div className="text-center">
+          <h3 className="text-4xl font-bold">게임 종료!</h3>
+          <p className="text-2xl mt-4">당신의 점수: {clicks}</p>
+          <p className="mt-4">어드민이 다음 라운드를 시작하기를 기다려주세요...</p>
+        </div>
+      );
+    }
+
+    if (!isGameRunning) {
+      return <button onClick={handleStart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-2xl">시작</button>;
+    }
+
+    return (
+      <div className="relative w-full h-64 bg-gray-700 rounded-lg">
+        <button 
+          onClick={handleClick} 
+          className={`absolute font-bold py-3 px-5 rounded-lg transition-all duration-100 text-white ${currentRound === 3 ? buttonColor : 'bg-purple-600'}`}
+          style={currentRound === 2 ? { top: position.top, left: position.left, transform: 'translate(-50%, -50%)' } : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        >
+          클릭!
+        </button>
+      </div>
+    );
   };
 
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
-      <h2 className="text-3xl font-bold mb-4">손 빠르니?? - 라운드 {round}</h2>
-      {round === 1 && <p className="mb-4">10초 안에 가장 많이 버튼을 누르세요!</p>}
-      {round === 2 && <p className="mb-4">10초 안에 움직이는 버튼을 가장 많이 누르세요!</p>}
-      {round === 3 && <p className="mb-4">10초 안에 초록색 버튼을 가장 많이 누르세요! (빨간색 버튼은 점수 차감)</p>}
-      <div className="text-4xl font-bold mb-4">점수: {score}</div>
-      <div className="text-2xl mb-6">남은시간: {timeLeft}s</div>
-
-      <div className="relative bg-gray-900 h-64 w-full mb-6 rounded-md">
-        {!isGameRunning && !isGameFinished && (
-          <button onClick={startGame} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md">
-            시작하기
-          </button>
-        )}
-
-        {isGameRunning && (
-          <button 
-            onClick={handleButtonClick} 
-            className={`absolute font-bold py-3 px-4 rounded-md transition-all duration-200 
-              ${round === 3 ? (buttonColor === 'green' ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600') : 'bg-purple-600 hover:bg-purple-700'}`}
-            style={round === 2 ? { top: position.top, left: position.left, transform: 'translate(-50%, -50%)' } : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-          >
-            Click Me!
-          </button>
-        )}
+    <div className="w-full max-w-2xl mx-auto p-4 bg-gray-800 rounded-lg text-center">
+      <h2 className="text-3xl font-bold mb-2">손 빠르니?? (라운드 {currentRound})</h2>
+      <p className="text-xl mb-4">남은 시간: {timeLeft}초 | 점수: {clicks}</p>
+      {renderGame()}
+      <div className="mt-8">
+        <button onClick={() => setShowLeaderboard(true)} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          리더보드 보기
+        </button>
       </div>
-
-      {message && <p className="mt-4 text-yellow-400">{message}</p>}
-
-      {isGameFinished && (
-        <div className="mt-4 space-y-2">
-          <button onClick={handleNextRound} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-            {round < 3 ? '다음 라운드' : '게임 종료'}
-          </button>
-          <button onClick={() => navigate('/leaderboard')} className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md">
-            순위보기
-          </button>
-        </div>
-      )}
-
-      <button onClick={() => navigate('/games')} className="mt-8 text-indigo-400 hover:text-indigo-300">
-        게임 선택으로 돌아가기
-      </button>
     </div>
   );
 };

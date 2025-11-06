@@ -1,90 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { fetchLeaderboard } from '../services/api';
+import { useGameState } from './GameStateContext';
 
-const Leaderboard = () => {
-  const navigate = useNavigate();
-  const [gameType, setGameType] = useState('timing_game');
-  const [round, setRound] = useState(1);
+const Leaderboard = ({ gameType, onBack }) => {
+  const { gameState } = useGameState();
   const [leaderboard, setLeaderboard] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleSearch = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const data = await fetchLeaderboard(gameType, round);
-      if (Array.isArray(data)) {
-        setLeaderboard(data);
-      } else {
-        setError(data.msg || 'Failed to fetch leaderboard');
-        setLeaderboard([]);
-      }
-    } catch (err) {
-      console.error('Error fetching leaderboard:', err);
-      setError('Server error fetching leaderboard');
-      setLeaderboard([]);
-    }
-    setLoading(false);
-  };
+  const currentRound = gameState ? gameState[gameType]?.currentRound : 1;
 
   useEffect(() => {
-    handleSearch();
-  }, []);
+    const getLeaderboard = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchLeaderboard(gameType, currentRound);
+        setLeaderboard(data);
+      } catch (error) {
+        console.error("Failed to fetch leaderboard:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (gameType && currentRound) {
+      getLeaderboard();
+    }
+  }, [gameType, currentRound]);
 
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl w-full">
-      <h1 className="text-3xl font-bold mb-6 text-center">리더보드</h1>
-      <div className="flex justify-center items-center space-x-4 mb-6">
-        <select value={gameType} onChange={(e) => setGameType(e.target.value)} className="bg-gray-700 text-white p-2 rounded-md">
-          <option value="timing_game">지금이니!!</option>
-          <option value="fast_hand_game">손 빠르니??</option>
-        </select>
-        <select value={round} onChange={(e) => setRound(e.target.value)} className="bg-gray-700 text-white p-2 rounded-md">
-          <option value="1">라운드 1</option>
-          <option value="2">라운드 2</option>
-          <option value="3">라운드 3</option>
-        </select>
-        <button onClick={handleSearch} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md">
-          검색
-        </button>
-      </div>
-
+    <div className="w-full max-w-2xl mx-auto p-4 bg-gray-800 rounded-lg">
+      <h2 className="text-3xl font-bold mb-4 text-center">리더보드 - {gameType} (라운드 {currentRound})</h2>
       {loading ? (
-        <p className="text-center">로딩...</p>
-      ) : error ? (
-        <p className="text-center text-red-400">{error}</p>
+        <p>로딩중...</p>
+      ) : leaderboard.length === 0 ? (
+        <p>아직 등록된 점수가 없습니다.</p>
       ) : (
-        <table className="w-full text-left table-auto">
-          <thead>
-            <tr className="bg-gray-700">
-              <th className="px-4 py-2">순위</th>
-              <th className="px-4 py-2">이름</th>
-              <th className="px-4 py-2">학번</th>
-              <th className="px-4 py-2">오차 시간</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboard.length > 0 ? (
-              leaderboard.map((entry, index) => (
-                <tr key={entry._id} className="border-b border-gray-700 hover:bg-gray-600">
-                  <td className="px-4 py-2">{index + 1}</td>
-                  <td className="px-4 py-2">{entry.user.name}</td>
-                  <td className="px-4 py-2">{entry.user.studentId}</td>
-                  <td className="px-4 py-2">{entry.score.toFixed(3)}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="text-center py-4">No records found for this game/round.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <ol className="list-decimal list-inside space-y-2">
+          {leaderboard.map((entry, index) => (
+            <li key={entry._id} className="p-2 bg-gray-700 rounded flex justify-between">
+              <span>{index + 1}. {entry.user?.name} ({entry.user?.studentId})</span>
+              <span>{entry.score}</span>
+            </li>
+          ))}
+        </ol>
       )}
-
-      <button onClick={() => navigate('/games')} className="mt-8 text-indigo-400 hover:text-indigo-300">
+      <button onClick={onBack} className="mt-8 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
         돌아가기
       </button>
     </div>

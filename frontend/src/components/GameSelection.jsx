@@ -1,51 +1,74 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { setAuthToken } from '../services/api';
+import React, { useState } from 'react';
+import TimingGame from './TimingGame';
+import FastHandGame from './FastHandGame';
+import Leaderboard from './Leaderboard';
+import { useGameState } from './GameStateContext';
 
-const GameSelection = ({ setIsAuthenticated, isAdmin }) => {
-  const navigate = useNavigate();
+const GameSelection = () => {
+  const { gameState } = useGameState();
+  const [selectedGame, setSelectedGame] = useState(null);
+  const [viewingLeaderboard, setViewingLeaderboard] = useState(null);
 
-  const handleLogout = () => {
-    setAuthToken(null);
-    setIsAuthenticated(false);
+  const handleGameSelect = (game) => {
+    setSelectedGame(game);
+    setViewingLeaderboard(null);
   };
 
+  const handleShowLeaderboard = (game) => {
+    setViewingLeaderboard(game);
+    setSelectedGame(null);
+  };
+
+  const handleBack = () => {
+    setSelectedGame(null);
+    setViewingLeaderboard(null);
+  };
+
+  if (!gameState) {
+    return <div>Loading games...</div>;
+  }
+
+  if (selectedGame) {
+    const gameComponents = {
+      timingGame: <TimingGame onBack={handleBack} />,
+      fastHandGame: <FastHandGame onBack={handleBack} />,
+    };
+    return gameComponents[selectedGame];
+  }
+
+  if (viewingLeaderboard) {
+    return <Leaderboard gameType={viewingLeaderboard} onBack={handleBack} />;
+  }
+
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-      <h2 className="text-2xl font-bold mb-6">게임 선택</h2>
+    <div className="text-center">
+      <h2 className="text-3xl font-bold mb-6">게임 선택</h2>
       <div className="space-y-4">
-        <button
-          onClick={() => navigate('/timing-game')}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          지금이니!!
-        </button>
-        <button
-          onClick={() => navigate('/fast-hand-game')}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-        >
-          손 빠르니??
-        </button>
-        <button
-          onClick={() => navigate('/leaderboard')}
-          className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-        >
-          순위 보기
-        </button>
-        {isAdmin && (
-          <button
-            onClick={() => navigate('/admin')}
-            className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-          >
-            어드민 페이지
-          </button>
+        {gameState.timingGame.isVisible && (
+          <div className="p-4 bg-gray-800 rounded-lg">
+            <h3 className="text-2xl mb-2">지금이니?!</h3>
+            <button onClick={() => handleGameSelect('timingGame')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+              게임 시작
+            </button>
+            <button onClick={() => handleShowLeaderboard('timingGame')} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+              리더보드 보기
+            </button>
+          </div>
         )}
-        <button
-          onClick={handleLogout}
-          className="w-1/4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-md mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-        >
-          로그아웃
-        </button>
+        {gameState.fastHandGame.isVisible && (
+          <div className="p-4 bg-gray-800 rounded-lg">
+            <h3 className="text-2xl mb-2">손 빠르니??</h3>
+            <button onClick={() => handleGameSelect('fastHandGame')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
+              게임 시작
+            </button>
+            <button onClick={() => handleShowLeaderboard('fastHandGame')} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+              리더보드 보기
+            </button>
+          </div>
+        )}
+        {!gameState.timingGame.isVisible && !gameState.fastHandGame.isVisible && (
+            <p>어드민이 게임을 공개하기를 기다리고 있습니다...</p>
+        )}
       </div>
     </div>
   );
