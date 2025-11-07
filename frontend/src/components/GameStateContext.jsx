@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import io from 'socket.io-client';
 
 const GameStateContext = createContext();
@@ -30,9 +30,13 @@ export const GameStateProvider = ({ children }) => {
     return () => newSocket.close();
   }, []);
 
+  const updateGameState = useCallback((newGameState) => {
+    setGameState(newGameState);
+  }, []);
+
   const value = {
     gameState,
-    // Functions to interact with the backend can be added here later
+    updateGameState,
   };
 
   return (

@@ -10,7 +10,7 @@ import {
 import { useGameState } from './GameStateContext';
 
 const AdminPanel = () => {
-  const { gameState } = useGameState();
+  const { gameState, updateGameState } = useGameState();
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -19,7 +19,8 @@ const AdminPanel = () => {
   const handleVisibilityToggle = async (gameType) => {
     try {
       const isVisible = !gameState[gameType].isVisible;
-      await setGameVisibility(gameType, isVisible);
+      const newGameState = await setGameVisibility(gameType, isVisible);
+      updateGameState(newGameState);
     } catch (error) {
       alert(`오류: ${error.message}`);
     }
@@ -27,7 +28,8 @@ const AdminPanel = () => {
 
   const handleSetRound = async (gameType, round) => {
     try {
-      await setGameRound(gameType, round);
+      const newGameState = await setGameRound(gameType, round);
+      updateGameState(newGameState);
     } catch (error) {
       alert(`오류: ${error.message}`);
     }

@@ -47,6 +47,7 @@ const GameSelection = () => {
         {gameState?.timingGame?.isVisible && (
           <div className="p-4 bg-gray-800 rounded-lg">
             <h3 className="text-2xl mb-2">지금이니?!</h3>
+            <p className="text-lg mb-4">라운드: {gameState.timingGame.currentRound}</p>
             <button onClick={() => handleGameSelect('timingGame')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
               게임 시작
             </button>
@@ -58,6 +59,7 @@ const GameSelection = () => {
         {gameState?.fastHandGame?.isVisible && (
           <div className="p-4 bg-gray-800 rounded-lg">
             <h3 className="text-2xl mb-2">손 빠르니??</h3>
+            <p className="text-lg mb-4">라운드: {gameState.fastHandGame.currentRound}</p>
             <button onClick={() => handleGameSelect('fastHandGame')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
               게임 시작
             </button>
