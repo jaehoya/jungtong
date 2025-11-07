@@ -69,8 +69,27 @@ export const decodeToken = (token) => {
 
 // --- MC Panel API Calls ---
 
-export const resetLeaderboard = async () => {
-  const response = await fetch(`${API_BASE_URL}/admin/leaderboard`, {
+export const getUsers = async () => {
+  const response = await fetch(`${API_BASE_URL}/admin/users`, {
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(response);
+};
+
+export const deleteUser = async (userId) => {
+  const response = await fetch(`${API_BASE_URL}/admin/users/${userId}`, {
+    method: 'DELETE',
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(response);
+};
+
+export const resetLeaderboard = async (gameType, round) => {
+  let url = `${API_BASE_URL}/admin/leaderboard/${gameType}`;
+  if (round) {
+    url += `?round=${round}`;
+  }
+  const response = await fetch(url, {
     method: 'DELETE',
     headers: getAuthHeaders(),
   });

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
 const GameScore = require('../models/GameScore');
+const User = require('../models/User');
 
 // @route   GET api/game/state
 // @desc    Get the current game state
@@ -42,13 +43,18 @@ router.post('/score', authMiddleware, async (req, res) => {
 router.get('/leaderboard/:gameType/:round', async (req, res) => {
   try {
     const { gameType, round } = req.params;
-    const sortOrder = gameType === 'timing_game' ? 1 : -1; // 1 for ascending, -1 for descending
+    const sortOrder = gameType === 'timing_game' ? 1 : -1;
 
-    const leaderboard = await GameScore.find({ gameType, round })
-      .sort({ score: sortOrder })
-      .limit(10)
-      .populate('user', ['name', 'studentId']);
-    res.json(leaderboard);
+    const [leaderboard, playersInRound, totalUsers] = await Promise.all([
+      GameScore.find({ gameType, round })
+        .sort({ score: sortOrder })
+        .limit(10)
+        .populate('user', ['name', 'studentId']),
+      GameScore.countDocuments({ gameType, round }),
+      User.countDocuments()
+    ]);
+
+    res.json({ leaderboard, playersInRound, totalUsers });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
