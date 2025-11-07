@@ -35,7 +35,7 @@ const Leaderboard = ({ gameType, currentRound, onBack }) => {
         <ol className="list-decimal list-inside space-y-2">
           {leaderboard.map((entry, index) => (
             <li key={entry._id} className="p-2 bg-gray-700 rounded flex justify-between">
-              <span>{index + 1}. {entry.user?.name} ({entry.user?.studentId})</span>
+              <span>{index + 1}. {entry.user?.name} </span>
               <span>
                 {gameType === 'timing_game' 
                   ? `${(entry.score / 1000).toFixed(3)}초` 
