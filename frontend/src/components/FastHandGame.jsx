@@ -16,7 +16,7 @@ const FastHandGame = () => {
   const [buttonColor, setButtonColor] = useState('bg-green-500');
 
   const currentRound = gameState?.fastHandGame?.currentRound || 1;
-  const timeLimit = currentRound === 2 || currentRound === 3 ? 20 : 10; // Rounds 2 & 3 are 20 seconds
+  const timeLimit = currentRound === 2 || currentRound === 3 ? 15 : 10; // Rounds 2 & 3 are 15 seconds
 
   const resetGameState = useCallback(() => {
     setClicks(0);
@@ -58,11 +58,13 @@ const FastHandGame = () => {
       if (currentRound === 2) {
         roundInterval = setInterval(() => {
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
-        }, 1200);
+        }, 1200); // Round 2: moves every 1.2 seconds
       } else if (currentRound === 3) {
         roundInterval = setInterval(() => {
+          // Round 3: moves faster and changes color
+          setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
           setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
-        }, 800);
+        }, 700); // Round 3: moves every 0.7 seconds
       }
     }
     return () => clearInterval(roundInterval);
@@ -101,12 +103,32 @@ const FastHandGame = () => {
       return <button onClick={handleStart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-2xl">시작</button>;
     }
 
+    // Button classes and styles based on round
+    const isMovingButton = currentRound === 2 || currentRound === 3;
+    let buttonClass = 'absolute font-bold rounded-lg transition-all duration-100 text-white';
+    
+    if (currentRound === 1) {
+      buttonClass += ' py-8 px-14 text-3xl'; // Larger button for round 1
+    } else {
+      buttonClass += ' py-3 px-5';
+    }
+
+    if (currentRound === 3) {
+      buttonClass += ` ${buttonColor}`;
+    } else {
+      buttonClass += ' bg-purple-600';
+    }
+
+    const buttonStyle = isMovingButton
+      ? { top: position.top, left: position.left, transform: 'translate(-50%, -50%)' }
+      : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
+
     return (
       <div className="relative w-full h-64 bg-gray-700 rounded-lg">
         <button 
           onClick={handleClick} 
-          className={`absolute font-bold py-3 px-5 rounded-lg transition-all duration-100 text-white ${currentRound === 3 ? buttonColor : 'bg-purple-600'}`}
-          style={currentRound === 2 ? { top: position.top, left: position.left, transform: 'translate(-50%, -50%)' } : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          className={buttonClass}
+          style={buttonStyle}
         >
           클릭!
         </button>
