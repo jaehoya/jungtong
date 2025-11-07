@@ -8,11 +8,13 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
+// Socket.IO server setup for production
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : '*',
-    methods: ['GET', 'POST']
-  }
+    origin: "https://jungtongbam.vercel.app",
+    methods: ["GET", "POST"]
+  },
+  transports: ['websocket', 'polling']
 });
 
 const PORT = process.env.PORT || 3000;
