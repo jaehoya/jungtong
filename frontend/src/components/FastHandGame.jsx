@@ -15,7 +15,7 @@ const FastHandGame = () => {
   const [position, setPosition] = useState({ top: '50%', left: '50%' });
   const [buttonColor, setButtonColor] = useState('bg-green-500');
 
-  const currentRound = gameState ? gameState.fastHandGame.currentRound : 1;
+  const currentRound = gameState?.fastHandGame?.currentRound || 1;
   const timeLimit = currentRound === 2 || currentRound === 3 ? 20 : 10; // Rounds 2 & 3 are 20 seconds
 
   const resetGameState = useCallback(() => {
@@ -45,12 +45,12 @@ const FastHandGame = () => {
         try {
           await submitScore('fast_hand_game', currentRound, clicks);
         } catch (error) {
-          alert('점수 등록에 실패했습니다.');
+          alert(`점수 등록 실패: ${error.message}`);
         }
       })();
     }
     return () => clearInterval(gameInterval);
-  }, [isGameRunning, timeLeft]);
+  }, [isGameRunning, timeLeft, clicks, currentRound]);
 
   useEffect(() => {
     let roundInterval;
@@ -92,7 +92,7 @@ const FastHandGame = () => {
         <div className="text-center">
           <h3 className="text-4xl font-bold">게임 종료!</h3>
           <p className="text-2xl mt-4">당신의 점수: {clicks}</p>
-          <p className="mt-4">어드민이 다음 라운드를 시작하기를 기다려주세요...</p>
+          <p className="mt-4">MC가 다음 라운드를 시작하기를 기다려주세요...</p>
         </div>
       );
     }

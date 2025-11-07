@@ -44,7 +44,7 @@ const GameSelection = () => {
     <div className="text-center">
       <h2 className="text-3xl font-bold mb-6">게임 선택</h2>
       <div className="space-y-4">
-        {gameState.timingGame.isVisible && (
+        {gameState?.timingGame?.isVisible && (
           <div className="p-4 bg-gray-800 rounded-lg">
             <h3 className="text-2xl mb-2">지금이니?!</h3>
             <button onClick={() => handleGameSelect('timingGame')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
@@ -55,7 +55,7 @@ const GameSelection = () => {
             </button>
           </div>
         )}
-        {gameState.fastHandGame.isVisible && (
+        {gameState?.fastHandGame?.isVisible && (
           <div className="p-4 bg-gray-800 rounded-lg">
             <h3 className="text-2xl mb-2">손 빠르니??</h3>
             <button onClick={() => handleGameSelect('fastHandGame')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
@@ -66,7 +66,7 @@ const GameSelection = () => {
             </button>
           </div>
         )}
-        {!gameState.timingGame.isVisible && !gameState.fastHandGame.isVisible && (
+        {!gameState?.timingGame?.isVisible && !gameState?.fastHandGame?.isVisible && (
             <p>MC가 게임을 공개하기를 기다리고 있습니다...</p>
         )}
       </div>

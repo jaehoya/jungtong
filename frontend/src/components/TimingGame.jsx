@@ -12,7 +12,7 @@ const TimingGame = () => {
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
-  const currentRound = gameState ? gameState.timingGame.currentRound : 1;
+  const currentRound = gameState?.timingGame?.currentRound || 1;
   const targetTime = 7.777;
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const TimingGame = () => {
     try {
       await submitScore('timing_game', currentRound, calculatedScore);
     } catch (error) {
-      alert('점수 등록에 실패했습니다.');
+      alert(`점수 등록 실패: ${error.message}`);
     }
   };
 
@@ -99,7 +99,7 @@ const TimingGame = () => {
         <div className="mt-6">
           <h3 className="text-2xl">라운드 {currentRound} 오차 시간: {(score / 1000).toFixed(3)}초</h3>
           <p>(0에 가까울수록 높은 순위)</p>
-          <p className="mt-4">어드민이 다음 라운드를 시작하기를 기다려주세요...</p>
+          <p className="mt-4">MC가 다음 라운드를 시작하기를 기다려주세요...</p>
         </div>
       )}
 
