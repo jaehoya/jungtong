@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { submitScore } from '../services/api';
 import { useGameState } from './GameStateContext';
 import Leaderboard from './Leaderboard';
@@ -14,9 +14,10 @@ const FastHandGame = () => {
   // Round specific state
   const [position, setPosition] = useState({ top: '50%', left: '50%' });
   const [buttonColor, setButtonColor] = useState('bg-green-500');
+  const colorTimeoutRef = useRef(null);
 
   const currentRound = gameState?.fastHandGame?.currentRound || 1;
-  const timeLimit = currentRound === 2 || currentRound === 3 ? 15 : 10; // Rounds 2 & 3 are 15 seconds
+  const timeLimit = currentRound === 3 ? 20 : (currentRound === 2 ? 15 : 10); // R1: 10s, R2: 15s, R3: 20s
 
   const resetGameState = useCallback(() => {
     setClicks(0);
@@ -53,21 +54,41 @@ const FastHandGame = () => {
   }, [isGameRunning, timeLeft, currentRound]);
 
   useEffect(() => {
-    let roundInterval;
+    let positionInterval;
+
+    const scheduleColorChange = () => {
+      // Random delay between 0.2 and 1.0 seconds
+      const delay = 200 + Math.random() * 800;
+      colorTimeoutRef.current = setTimeout(() => {
+        setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
+        // Continue the loop only if the game is still running
+        if (isGameRunning) {
+          scheduleColorChange();
+        }
+      }, delay);
+    };
+
     if (isGameRunning) {
       if (currentRound === 2) {
-        roundInterval = setInterval(() => {
+        positionInterval = setInterval(() => {
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
         }, 1200); // Round 2: moves every 1.2 seconds
       } else if (currentRound === 3) {
-        roundInterval = setInterval(() => {
-          // Round 3: moves faster and changes color
+        // Movement at a fixed rate
+        positionInterval = setInterval(() => {
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
-          setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
         }, 900); // Round 3: moves every 0.9 seconds
+        
+        // Start the random color change loop
+        scheduleColorChange();
       }
     }
-    return () => clearInterval(roundInterval);
+
+    // Cleanup function
+    return () => {
+      clearInterval(positionInterval);
+      clearTimeout(colorTimeoutRef.current);
+    };
   }, [isGameRunning, currentRound]);
 
   const handleStart = () => {
