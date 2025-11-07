@@ -8,12 +8,15 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const CLIENT_URL = "https://jungtongbam.vercel.app";
+const ALLOWED_ORIGINS = [
+  "https://jungtongbam.vercel.app",
+  "https://jungtongbam-jaehoyas-projects.vercel.app"
+];
 
 // Socket.IO server setup for production
 const io = new Server(server, {
   cors: {
-    origin: CLIENT_URL,
+    origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
   },
   transports: ['websocket', 'polling']
@@ -45,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 // Define Routes with granular CORS
-const corsMiddleware = cors({ origin: CLIENT_URL });
+const corsMiddleware = cors({ origin: ALLOWED_ORIGINS });
 app.use('/api/auth', corsMiddleware, require('./routes/auth'));
 app.use('/api/game', corsMiddleware, require('./routes/game'));
 app.use('/api/admin', corsMiddleware, require('./routes/admin'));
