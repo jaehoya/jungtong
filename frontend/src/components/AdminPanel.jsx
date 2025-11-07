@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
-import {
-  addUser,
-  addUsersBulk,
-  resetLeaderboard,
-  setGameVisibility,
-  setGameRound
+import { 
+  addUser, 
+  addUsersBulk, 
+  resetLeaderboard, 
+  setGameVisibility, 
+  setGameRound 
 } from '../services/api';
 import { useGameState } from './GameStateContext';
 
 const AdminPanel = () => {
-  const { gameState } = useGameState();
+  const { gameState, updateGameState } = useGameState();
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -19,7 +19,8 @@ const AdminPanel = () => {
   const handleVisibilityToggle = async (gameType) => {
     try {
       const isVisible = !gameState[gameType].isVisible;
-      await setGameVisibility(gameType, isVisible);
+      const newGameState = await setGameVisibility(gameType, isVisible);
+      updateGameState(newGameState);
     } catch (error) {
       alert(`오류: ${error.message}`);
     }
@@ -27,7 +28,8 @@ const AdminPanel = () => {
 
   const handleSetRound = async (gameType, round) => {
     try {
-      await setGameRound(gameType, round);
+      const newGameState = await setGameRound(gameType, round);
+      updateGameState(newGameState);
     } catch (error) {
       alert(`오류: ${error.message}`);
     }
@@ -96,10 +98,10 @@ const AdminPanel = () => {
           <h3 className="font-bold mb-2">게임 컨트롤</h3>
           {Object.keys(gameState).map(gameType => (
             <div key={gameType} className="mb-2">
-              <p className="mb-2">{gameType === 'timingGame' ? '지금이니?!' : '손 빠르니??'} (현재: {gameState[gameType].currentRound} 라운드)</p>
+              <p className="mb-2">{gameType === 'timingGame' ? '지금이니?!' : '손 빠르니??'} (현재: {gameState?.[gameType]?.currentRound} 라운드)</p>
               <div className="flex items-center justify-between">
                 <button onClick={() => handleVisibilityToggle(gameType)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-                  {gameState[gameType].isVisible ? '숨기기' : '공개'}
+                  {gameState?.[gameType]?.isVisible ? '숨기기' : '공개'}
                 </button>
                 <div className="flex items-center space-x-1">
                   <span>라운드 설정:</span>
@@ -107,7 +109,7 @@ const AdminPanel = () => {
                     <button 
                       key={round} 
                       onClick={() => handleSetRound(gameType, round)} 
-                      className={`w-8 h-8 rounded ${gameState[gameType].currentRound === round ? 'bg-green-700' : 'bg-green-500'} hover:bg-green-700 text-white font-bold`}>
+                      className={`w-8 h-8 rounded ${gameState?.[gameType]?.currentRound === round ? 'bg-green-700' : 'bg-green-500'} hover:bg-green-700 text-white font-bold`}>
                       {round}
                     </button>
                   ))}

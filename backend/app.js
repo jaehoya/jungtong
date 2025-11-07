@@ -8,10 +8,15 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
+const ALLOWED_ORIGINS = [
+  "https://jungtongbam.vercel.app",
+  "https://jungtongbam-jaehoyas-projects.vercel.app"
+];
+
 // Socket.IO server setup for production
 const io = new Server(server, {
   cors: {
-    origin: "https://jungtongbam.vercel.app",
+    origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
   },
   transports: ['websocket', 'polling']
@@ -31,13 +36,6 @@ let gameState = {
   },
 };
 
-// CORS Middleware
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : '*',
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,10 +47,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Define Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/game', require('./routes/game'));
-app.use('/api/admin', require('./routes/admin'));
+// Define Routes with granular CORS
+const corsMiddleware = cors({ origin: ALLOWED_ORIGINS });
+app.use('/api/auth', corsMiddleware, require('./routes/auth'));
+app.use('/api/game', corsMiddleware, require('./routes/game'));
+app.use('/api/admin', corsMiddleware, require('./routes/admin'));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

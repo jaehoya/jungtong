@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import io from 'socket.io-client';
 
 const GameStateContext = createContext();
@@ -22,7 +22,7 @@ export const GameStateProvider = ({ children }) => {
     });
 
     // Fetch initial state via HTTP as a fallback
-    fetch(`${API_BASE_URL}/api/game/state`)
+    fetch(`${API_BASE_URL}/game/state`)
       .then(res => res.json())
       .then(data => setGameState(data))
       .catch(err => console.error('Failed to fetch initial game state:', err));
@@ -30,9 +30,13 @@ export const GameStateProvider = ({ children }) => {
     return () => newSocket.close();
   }, []);
 
+  const updateGameState = useCallback((newGameState) => {
+    setGameState(newGameState);
+  }, []);
+
   const value = {
     gameState,
-    // Functions to interact with the backend can be added here later
+    updateGameState,
   };
 
   return (
