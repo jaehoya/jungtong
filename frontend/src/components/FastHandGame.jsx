@@ -64,7 +64,7 @@ const FastHandGame = () => {
           // Round 3: moves faster and changes color
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
           setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
-        }, 700); // Round 3: moves every 0.7 seconds
+        }, 900); // Round 3: moves every 0.9 seconds
       }
     }
     return () => clearInterval(roundInterval);
