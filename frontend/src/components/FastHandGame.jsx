@@ -50,7 +50,7 @@ const FastHandGame = () => {
       })();
     }
     return () => clearInterval(gameInterval);
-  }, [isGameRunning, timeLeft, clicks, currentRound]);
+  }, [isGameRunning, timeLeft, currentRound]);
 
   useEffect(() => {
     let roundInterval;
@@ -120,7 +120,7 @@ const FastHandGame = () => {
       <p className="text-xl mb-4">남은 시간: {timeLeft}초 | 점수: {clicks}</p>
       {renderGame()}
       <div className="mt-8">
-        <button onClick={() => setShowLeaderboard(true)} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+        <button onClick={() => setShowLeaderboard(true)} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400" disabled={!gameState}>
           리더보드 보기
         </button>
       </div>

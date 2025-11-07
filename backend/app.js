@@ -10,7 +10,8 @@ const app = express();
 const server = http.createServer(app);
 const ALLOWED_ORIGINS = [
   "https://jungtongbam.vercel.app",
-  "https://jungtongbam-jaehoyas-projects.vercel.app"
+  "https://jungtongbam-jaehoyas-projects.vercel.app",
+  "http://localhost:5173"
 ];
 
 // Socket.IO server setup for production

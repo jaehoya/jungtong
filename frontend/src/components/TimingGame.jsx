@@ -104,7 +104,7 @@ const TimingGame = () => {
       )}
 
       <div className="mt-8">
-        <button onClick={() => setShowLeaderboard(true)} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+        <button onClick={() => setShowLeaderboard(true)} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400" disabled={!gameState}>
           리더보드 보기
         </button>
       </div>
