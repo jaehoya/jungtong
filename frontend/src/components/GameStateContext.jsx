@@ -22,7 +22,7 @@ export const GameStateProvider = ({ children }) => {
     });
 
     // Fetch initial state via HTTP as a fallback
-    fetch(`${API_BASE_URL}/api/game/state`)
+    fetch(`${API_BASE_URL}/game/state`)
       .then(res => res.json())
       .then(data => setGameState(data))
       .catch(err => console.error('Failed to fetch initial game state:', err));
