@@ -1,0 +1,2103 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Submit a unique score": 6450,
+      "vusers.created": 6450,
+      "http.requests": 6450,
+      "plugins.metrics-by-endpoint./api/game/score.errors.ETIMEDOUT": 90,
+      "errors.ETIMEDOUT": 90,
+      "vusers.failed": 90,
+      "http.codes.502": 1,
+      "http.responses": 6361,
+      "http.downloaded_bytes": 279811,
+      "plugins.metrics-by-endpoint./api/game/score.codes.502": 1,
+      "vusers.completed": 6360,
+      "http.codes.401": 6360,
+      "plugins.metrics-by-endpoint./api/game/score.codes.401": 6359
+    },
+    "rates": {
+      "http.request_rate": 23
+    },
+    "firstCounterAt": 1762686179557,
+    "firstHistogramAt": 1762686206529,
+    "lastCounterAt": 1762686330225,
+    "lastHistogramAt": 1762686330225,
+    "firstMetricAt": 1762686179557,
+    "lastMetricAt": 1762686330225,
+    "period": 1762686330000,
+    "summaries": {
+      "http.response_time": {
+        "min": 107,
+        "max": 9878,
+        "count": 6361,
+        "mean": 177.5,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8520.7
+      },
+      "http.response_time.5xx": {
+        "min": 9878,
+        "max": 9878,
+        "count": 1,
+        "mean": 9878,
+        "p50": 9801.2,
+        "median": 9801.2,
+        "p75": 9801.2,
+        "p90": 9801.2,
+        "p95": 9801.2,
+        "p99": 9801.2,
+        "p999": 9801.2
+      },
+      "plugins.metrics-by-endpoint.response_time./api/game/score": {
+        "min": 107,
+        "max": 9878,
+        "count": 6360,
+        "mean": 177.5,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8520.7
+      },
+      "vusers.session_length": {
+        "min": 197.6,
+        "max": 9973.5,
+        "count": 6360,
+        "mean": 271.4,
+        "p50": 223.7,
+        "median": 223.7,
+        "p75": 237.5,
+        "p90": 252.2,
+        "p95": 278.7,
+        "p99": 441.5,
+        "p999": 8520.7
+      },
+      "http.response_time.4xx": {
+        "min": 107,
+        "max": 9550,
+        "count": 6360,
+        "mean": 175.9,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8352
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 107,
+        "max": 9878,
+        "count": 6361,
+        "mean": 177.5,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8520.7
+      },
+      "http.response_time.5xx": {
+        "min": 9878,
+        "max": 9878,
+        "count": 1,
+        "mean": 9878,
+        "p50": 9801.2,
+        "median": 9801.2,
+        "p75": 9801.2,
+        "p90": 9801.2,
+        "p95": 9801.2,
+        "p99": 9801.2,
+        "p999": 9801.2
+      },
+      "plugins.metrics-by-endpoint.response_time./api/game/score": {
+        "min": 107,
+        "max": 9878,
+        "count": 6360,
+        "mean": 177.5,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8520.7
+      },
+      "vusers.session_length": {
+        "min": 197.6,
+        "max": 9973.5,
+        "count": 6360,
+        "mean": 271.4,
+        "p50": 223.7,
+        "median": 223.7,
+        "p75": 237.5,
+        "p90": 252.2,
+        "p95": 278.7,
+        "p99": 441.5,
+        "p999": 8520.7
+      },
+      "http.response_time.4xx": {
+        "min": 107,
+        "max": 9550,
+        "count": 6360,
+        "mean": 175.9,
+        "p50": 130.3,
+        "median": 130.3,
+        "p75": 141.2,
+        "p90": 153,
+        "p95": 186.8,
+        "p99": 327.1,
+        "p999": 8352
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 5,
+        "vusers.created": 5,
+        "http.requests": 5
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686179557,
+      "lastCounterAt": 1762686179822,
+      "firstMetricAt": 1762686179557,
+      "lastMetricAt": 1762686179822,
+      "period": "1762686170000",
+      "summaries": {},
+      "histograms": {}
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 50,
+        "vusers.created": 50,
+        "http.requests": 50,
+        "plugins.metrics-by-endpoint./api/game/score.errors.ETIMEDOUT": 5,
+        "errors.ETIMEDOUT": 5,
+        "vusers.failed": 5
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686180581,
+      "lastCounterAt": 1762686189837,
+      "firstMetricAt": 1762686180581,
+      "lastMetricAt": 1762686189837,
+      "period": "1762686180000",
+      "summaries": {},
+      "histograms": {}
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 50,
+        "vusers.created": 50,
+        "http.requests": 50,
+        "plugins.metrics-by-endpoint./api/game/score.errors.ETIMEDOUT": 50,
+        "errors.ETIMEDOUT": 50,
+        "vusers.failed": 50
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686190557,
+      "lastCounterAt": 1762686199807,
+      "firstMetricAt": 1762686190557,
+      "lastMetricAt": 1762686199807,
+      "period": "1762686190000",
+      "summaries": {},
+      "histograms": {}
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 50,
+        "vusers.created": 50,
+        "http.requests": 50,
+        "plugins.metrics-by-endpoint./api/game/score.errors.ETIMEDOUT": 34,
+        "errors.ETIMEDOUT": 34,
+        "vusers.failed": 34,
+        "http.codes.502": 1,
+        "http.responses": 64,
+        "http.downloaded_bytes": 2787,
+        "plugins.metrics-by-endpoint./api/game/score.codes.502": 1,
+        "vusers.completed": 64,
+        "http.codes.401": 63,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 63
+      },
+      "rates": {
+        "http.request_rate": 5
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686200557,
+      "firstHistogramAt": 1762686206529,
+      "lastCounterAt": 1762686209932,
+      "lastHistogramAt": 1762686209932,
+      "firstMetricAt": 1762686200557,
+      "lastMetricAt": 1762686209932,
+      "period": "1762686200000",
+      "summaries": {
+        "http.response_time": {
+          "min": 120,
+          "max": 9878,
+          "count": 64,
+          "mean": 4009.8,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "http.response_time.5xx": {
+          "min": 9878,
+          "max": 9878,
+          "count": 1,
+          "mean": 9878,
+          "p50": 9801.2,
+          "median": 9801.2,
+          "p75": 9801.2,
+          "p90": 9801.2,
+          "p95": 9801.2,
+          "p99": 9801.2,
+          "p999": 9801.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 120,
+          "max": 9878,
+          "count": 64,
+          "mean": 4009.8,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "vusers.session_length": {
+          "min": 206.4,
+          "max": 9973.5,
+          "count": 64,
+          "mean": 4102,
+          "p50": 3534.1,
+          "median": 3534.1,
+          "p75": 6569.8,
+          "p90": 8520.7,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "http.response_time.4xx": {
+          "min": 120,
+          "max": 9550,
+          "count": 63,
+          "mean": 3916.7,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9230.4,
+          "p99": 9416.8,
+          "p999": 9416.8
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 120,
+          "max": 9878,
+          "count": 64,
+          "mean": 4009.8,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "http.response_time.5xx": {
+          "min": 9878,
+          "max": 9878,
+          "count": 1,
+          "mean": 9878,
+          "p50": 9801.2,
+          "median": 9801.2,
+          "p75": 9801.2,
+          "p90": 9801.2,
+          "p95": 9801.2,
+          "p99": 9801.2,
+          "p999": 9801.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 120,
+          "max": 9878,
+          "count": 64,
+          "mean": 4009.8,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "vusers.session_length": {
+          "min": 206.4,
+          "max": 9973.5,
+          "count": 64,
+          "mean": 4102,
+          "p50": 3534.1,
+          "median": 3534.1,
+          "p75": 6569.8,
+          "p90": 8520.7,
+          "p95": 9416.8,
+          "p99": 9607.1,
+          "p999": 9607.1
+        },
+        "http.response_time.4xx": {
+          "min": 120,
+          "max": 9550,
+          "count": 63,
+          "mean": 3916.7,
+          "p50": 3464.1,
+          "median": 3464.1,
+          "p75": 6439.7,
+          "p90": 8352,
+          "p95": 9230.4,
+          "p99": 9416.8,
+          "p999": 9416.8
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 89,
+        "vusers.created": 89,
+        "http.requests": 89,
+        "http.codes.401": 88,
+        "http.responses": 88,
+        "http.downloaded_bytes": 3872,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 88,
+        "vusers.failed": 0,
+        "vusers.completed": 88
+      },
+      "rates": {
+        "http.request_rate": 12
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686210012,
+      "firstHistogramAt": 1762686210012,
+      "lastCounterAt": 1762686219996,
+      "lastHistogramAt": 1762686219996,
+      "firstMetricAt": 1762686210012,
+      "lastMetricAt": 1762686219996,
+      "period": "1762686210000",
+      "summaries": {
+        "http.response_time": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "http.response_time.4xx": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "vusers.session_length": {
+          "min": 202.8,
+          "max": 385.8,
+          "count": 88,
+          "mean": 237.9,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 247.2,
+          "p90": 273.2,
+          "p95": 290.1,
+          "p99": 361.5,
+          "p999": 361.5
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "http.response_time.4xx": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 118,
+          "max": 289,
+          "count": 88,
+          "mean": 142.9,
+          "p50": 135.7,
+          "median": 135.7,
+          "p75": 144,
+          "p90": 162.4,
+          "p95": 190.6,
+          "p99": 267.8,
+          "p999": 267.8
+        },
+        "vusers.session_length": {
+          "min": 202.8,
+          "max": 385.8,
+          "count": 88,
+          "mean": 237.9,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 247.2,
+          "p90": 273.2,
+          "p95": 290.1,
+          "p99": 361.5,
+          "p999": 361.5
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 173,
+        "vusers.created": 173,
+        "http.requests": 173,
+        "http.codes.401": 173,
+        "http.responses": 173,
+        "http.downloaded_bytes": 7612,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 173,
+        "vusers.failed": 0,
+        "vusers.completed": 173
+      },
+      "rates": {
+        "http.request_rate": 18
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686220043,
+      "firstHistogramAt": 1762686220053,
+      "lastCounterAt": 1762686229999,
+      "lastHistogramAt": 1762686229996,
+      "firstMetricAt": 1762686220043,
+      "lastMetricAt": 1762686229999,
+      "period": "1762686220000",
+      "summaries": {
+        "http.response_time": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "http.response_time.4xx": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "vusers.session_length": {
+          "min": 198.4,
+          "max": 350,
+          "count": 173,
+          "mean": 228.8,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 262.5,
+          "p99": 308,
+          "p999": 320.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "http.response_time.4xx": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 116,
+          "max": 262,
+          "count": 173,
+          "mean": 137.8,
+          "p50": 133,
+          "median": 133,
+          "p75": 144,
+          "p90": 153,
+          "p95": 169,
+          "p99": 219.2,
+          "p999": 223.7
+        },
+        "vusers.session_length": {
+          "min": 198.4,
+          "max": 350,
+          "count": 173,
+          "mean": 228.8,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 262.5,
+          "p99": 308,
+          "p999": 320.6
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 253,
+        "vusers.created": 253,
+        "http.requests": 253,
+        "http.codes.401": 248,
+        "http.responses": 248,
+        "http.downloaded_bytes": 10912,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 248,
+        "vusers.failed": 0,
+        "vusers.completed": 248
+      },
+      "rates": {
+        "http.request_rate": 26
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686230044,
+      "firstHistogramAt": 1762686230089,
+      "lastCounterAt": 1762686239985,
+      "lastHistogramAt": 1762686239974,
+      "firstMetricAt": 1762686230044,
+      "lastMetricAt": 1762686239985,
+      "period": "1762686230000",
+      "summaries": {
+        "http.response_time": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "vusers.session_length": {
+          "min": 200.2,
+          "max": 473.7,
+          "count": 248,
+          "mean": 224,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 228.2,
+          "p90": 242.3,
+          "p95": 247.2,
+          "p99": 267.8,
+          "p999": 391.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 305,
+          "count": 248,
+          "mean": 133.2,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 153,
+          "p99": 165.7,
+          "p999": 273.2
+        },
+        "vusers.session_length": {
+          "min": 200.2,
+          "max": 473.7,
+          "count": 248,
+          "mean": 224,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 228.2,
+          "p90": 242.3,
+          "p95": 247.2,
+          "p99": 267.8,
+          "p999": 391.6
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.401": 330,
+        "http.responses": 330,
+        "http.downloaded_bytes": 14476,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 329,
+        "vusers.failed": 0,
+        "vusers.completed": 329,
+        "vusers.created_by_name.Submit a unique score": 330,
+        "vusers.created": 330,
+        "http.requests": 330
+      },
+      "rates": {
+        "http.request_rate": 35
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686240024,
+      "firstHistogramAt": 1762686240024,
+      "lastCounterAt": 1762686249991,
+      "lastHistogramAt": 1762686249991,
+      "firstMetricAt": 1762686240024,
+      "lastMetricAt": 1762686249991,
+      "period": "1762686240000",
+      "summaries": {
+        "http.response_time": {
+          "min": 114,
+          "max": 453,
+          "count": 330,
+          "mean": 134.5,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 453,
+          "count": 330,
+          "mean": 134.5,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 453,
+          "count": 329,
+          "mean": 134.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "vusers.session_length": {
+          "min": 199.7,
+          "max": 556.4,
+          "count": 329,
+          "mean": 225,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 228.2,
+          "p90": 242.3,
+          "p95": 252.2,
+          "p99": 284.3,
+          "p999": 424.2
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 114,
+          "max": 453,
+          "count": 330,
+          "mean": 134.5,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 453,
+          "count": 330,
+          "mean": 134.5,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 453,
+          "count": 329,
+          "mean": 134.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 147,
+          "p95": 156,
+          "p99": 194.4,
+          "p999": 340.4
+        },
+        "vusers.session_length": {
+          "min": 199.7,
+          "max": 556.4,
+          "count": 329,
+          "mean": 225,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 228.2,
+          "p90": 242.3,
+          "p95": 252.2,
+          "p99": 284.3,
+          "p999": 424.2
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.401": 408,
+        "http.responses": 408,
+        "http.downloaded_bytes": 17952,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 407,
+        "vusers.failed": 1,
+        "vusers.completed": 407,
+        "vusers.created_by_name.Submit a unique score": 410,
+        "vusers.created": 410,
+        "http.requests": 410,
+        "plugins.metrics-by-endpoint./api/game/score.errors.ETIMEDOUT": 1,
+        "errors.ETIMEDOUT": 1
+      },
+      "rates": {
+        "http.request_rate": 42
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686250009,
+      "firstHistogramAt": 1762686250009,
+      "lastCounterAt": 1762686259999,
+      "lastHistogramAt": 1762686259999,
+      "firstMetricAt": 1762686250009,
+      "lastMetricAt": 1762686259999,
+      "period": "1762686250000",
+      "summaries": {
+        "http.response_time": {
+          "min": 115,
+          "max": 353,
+          "count": 408,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 353,
+          "count": 408,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 353,
+          "count": 407,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "vusers.session_length": {
+          "min": 199.4,
+          "max": 439.5,
+          "count": 407,
+          "mean": 227.5,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 267.8,
+          "p99": 383.8,
+          "p999": 415.8
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 115,
+          "max": 353,
+          "count": 408,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 353,
+          "count": 408,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 353,
+          "count": 407,
+          "mean": 136,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 278.7,
+          "p999": 327.1
+        },
+        "vusers.session_length": {
+          "min": 199.4,
+          "max": 439.5,
+          "count": 407,
+          "mean": 227.5,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 267.8,
+          "p99": 383.8,
+          "p999": 415.8
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.401": 483,
+        "http.responses": 483,
+        "http.downloaded_bytes": 21252,
+        "vusers.created_by_name.Submit a unique score": 487,
+        "vusers.created": 487,
+        "http.requests": 487,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 484,
+        "vusers.failed": 0,
+        "vusers.completed": 484
+      },
+      "rates": {
+        "http.request_rate": 50
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686260000,
+      "firstHistogramAt": 1762686260000,
+      "lastCounterAt": 1762686269990,
+      "lastHistogramAt": 1762686269963,
+      "firstMetricAt": 1762686260000,
+      "lastMetricAt": 1762686269990,
+      "period": "1762686260000",
+      "summaries": {
+        "http.response_time": {
+          "min": 114,
+          "max": 438,
+          "count": 483,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 438,
+          "count": 483,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 438,
+          "count": 484,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "vusers.session_length": {
+          "min": 197.6,
+          "max": 537.2,
+          "count": 484,
+          "mean": 226.2,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 262.5,
+          "p99": 290.1,
+          "p999": 539.2
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 114,
+          "max": 438,
+          "count": 483,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 438,
+          "count": 483,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 438,
+          "count": 484,
+          "mean": 135.3,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 159.2,
+          "p99": 198.4,
+          "p999": 441.5
+        },
+        "vusers.session_length": {
+          "min": 197.6,
+          "max": 537.2,
+          "count": 484,
+          "mean": 226.2,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 262.5,
+          "p99": 290.1,
+          "p999": 539.2
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 567,
+        "vusers.created": 567,
+        "http.requests": 567,
+        "http.codes.401": 568,
+        "http.responses": 568,
+        "http.downloaded_bytes": 24992,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 568,
+        "vusers.failed": 0,
+        "vusers.completed": 568
+      },
+      "rates": {
+        "http.request_rate": 58
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686270004,
+      "firstHistogramAt": 1762686270004,
+      "lastCounterAt": 1762686279990,
+      "lastHistogramAt": 1762686279983,
+      "firstMetricAt": 1762686270004,
+      "lastMetricAt": 1762686279990,
+      "period": "1762686270000",
+      "summaries": {
+        "http.response_time": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "http.response_time.4xx": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "vusers.session_length": {
+          "min": 200.6,
+          "max": 9196.2,
+          "count": 568,
+          "mean": 243.1,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 262.5,
+          "p99": 320.6,
+          "p999": 376.2
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "http.response_time.4xx": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 116,
+          "max": 9107,
+          "count": 568,
+          "mean": 151.2,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 162.4,
+          "p99": 228.2,
+          "p999": 278.7
+        },
+        "vusers.session_length": {
+          "min": 200.6,
+          "max": 9196.2,
+          "count": 568,
+          "mean": 243.1,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 232.8,
+          "p90": 247.2,
+          "p95": 262.5,
+          "p99": 320.6,
+          "p999": 376.2
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 645,
+        "vusers.created": 645,
+        "http.requests": 645,
+        "http.codes.401": 641,
+        "http.responses": 641,
+        "http.downloaded_bytes": 28204,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 641,
+        "vusers.failed": 0,
+        "vusers.completed": 641
+      },
+      "rates": {
+        "http.request_rate": 65
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686280004,
+      "firstHistogramAt": 1762686280024,
+      "lastCounterAt": 1762686289993,
+      "lastHistogramAt": 1762686289972,
+      "firstMetricAt": 1762686280004,
+      "lastMetricAt": 1762686289993,
+      "period": "1762686280000",
+      "summaries": {
+        "http.response_time": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "vusers.session_length": {
+          "min": 201.6,
+          "max": 874.1,
+          "count": 641,
+          "mean": 230.3,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 273.2,
+          "p99": 314.2,
+          "p999": 432.7
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "http.response_time.4xx": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 115,
+          "max": 786,
+          "count": 641,
+          "mean": 136.9,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 179.5,
+          "p99": 214.9,
+          "p999": 284.3
+        },
+        "vusers.session_length": {
+          "min": 201.6,
+          "max": 874.1,
+          "count": 641,
+          "mean": 230.3,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 273.2,
+          "p99": 314.2,
+          "p999": 432.7
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.401": 721,
+        "http.responses": 721,
+        "http.downloaded_bytes": 31724,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 721,
+        "vusers.failed": 0,
+        "vusers.completed": 721,
+        "vusers.created_by_name.Submit a unique score": 722,
+        "vusers.created": 722,
+        "http.requests": 722
+      },
+      "rates": {
+        "http.request_rate": 73
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686290004,
+      "firstHistogramAt": 1762686290004,
+      "lastCounterAt": 1762686299997,
+      "lastHistogramAt": 1762686299997,
+      "firstMetricAt": 1762686290004,
+      "lastMetricAt": 1762686299997,
+      "period": "1762686290000",
+      "summaries": {
+        "http.response_time": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "http.response_time.4xx": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "vusers.session_length": {
+          "min": 197.9,
+          "max": 459.6,
+          "count": 721,
+          "mean": 230.3,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 273.2,
+          "p99": 295.9,
+          "p999": 441.5
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "http.response_time.4xx": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 107,
+          "max": 353,
+          "count": 721,
+          "mean": 135,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 172.5,
+          "p99": 194.4,
+          "p999": 354.3
+        },
+        "vusers.session_length": {
+          "min": 197.9,
+          "max": 459.6,
+          "count": 721,
+          "mean": 230.3,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 252.2,
+          "p95": 273.2,
+          "p99": 295.9,
+          "p999": 441.5
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 802,
+        "vusers.created": 802,
+        "http.requests": 802,
+        "http.codes.401": 799,
+        "http.responses": 799,
+        "http.downloaded_bytes": 35156,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 799,
+        "vusers.failed": 0,
+        "vusers.completed": 799
+      },
+      "rates": {
+        "http.request_rate": 81
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686300005,
+      "firstHistogramAt": 1762686300022,
+      "lastCounterAt": 1762686309985,
+      "lastHistogramAt": 1762686309958,
+      "firstMetricAt": 1762686300005,
+      "lastMetricAt": 1762686309985,
+      "period": "1762686300000",
+      "summaries": {
+        "http.response_time": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "http.response_time.4xx": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "vusers.session_length": {
+          "min": 200.8,
+          "max": 639.6,
+          "count": 799,
+          "mean": 233.7,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 278.7,
+          "p99": 333.7,
+          "p999": 632.8
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "http.response_time.4xx": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 113,
+          "max": 370,
+          "count": 799,
+          "mean": 136.1,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 149.9,
+          "p95": 183.1,
+          "p99": 223.7,
+          "p999": 308
+        },
+        "vusers.session_length": {
+          "min": 200.8,
+          "max": 639.6,
+          "count": 799,
+          "mean": 233.7,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 278.7,
+          "p99": 333.7,
+          "p999": 632.8
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 884,
+        "vusers.created": 884,
+        "http.requests": 883,
+        "http.codes.401": 884,
+        "http.responses": 884,
+        "http.downloaded_bytes": 38896,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 883,
+        "vusers.failed": 0,
+        "vusers.completed": 883
+      },
+      "rates": {
+        "http.request_rate": 90
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686310013,
+      "firstHistogramAt": 1762686310053,
+      "lastCounterAt": 1762686319999,
+      "lastHistogramAt": 1762686319999,
+      "firstMetricAt": 1762686310013,
+      "lastMetricAt": 1762686319999,
+      "period": "1762686310000",
+      "summaries": {
+        "http.response_time": {
+          "min": 113,
+          "max": 6507,
+          "count": 884,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "http.response_time.4xx": {
+          "min": 113,
+          "max": 6507,
+          "count": 884,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 113,
+          "max": 6507,
+          "count": 883,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "vusers.session_length": {
+          "min": 200,
+          "max": 6597.8,
+          "count": 883,
+          "mean": 238.5,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 278.7,
+          "p99": 327.1,
+          "p999": 561.2
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 113,
+          "max": 6507,
+          "count": 884,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "http.response_time.4xx": {
+          "min": 113,
+          "max": 6507,
+          "count": 884,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 113,
+          "max": 6507,
+          "count": 883,
+          "mean": 143.4,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 138.4,
+          "p90": 153,
+          "p95": 186.8,
+          "p99": 223.7,
+          "p999": 478.3
+        },
+        "vusers.session_length": {
+          "min": 200,
+          "max": 6597.8,
+          "count": 883,
+          "mean": 238.5,
+          "p50": 223.7,
+          "median": 223.7,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 278.7,
+          "p99": 327.1,
+          "p999": 561.2
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Submit a unique score": 933,
+        "vusers.created": 933,
+        "http.requests": 933,
+        "http.codes.401": 947,
+        "http.responses": 947,
+        "http.downloaded_bytes": 41668,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 948,
+        "vusers.failed": 0,
+        "vusers.completed": 948
+      },
+      "rates": {
+        "http.request_rate": 97
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1762686320001,
+      "firstHistogramAt": 1762686320001,
+      "lastCounterAt": 1762686329999,
+      "lastHistogramAt": 1762686329977,
+      "firstMetricAt": 1762686320001,
+      "lastMetricAt": 1762686329999,
+      "period": "1762686320000",
+      "summaries": {
+        "http.response_time": {
+          "min": 114,
+          "max": 323,
+          "count": 947,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 323,
+          "count": 947,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 323,
+          "count": 948,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "vusers.session_length": {
+          "min": 198.3,
+          "max": 410.3,
+          "count": 948,
+          "mean": 233,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 284.3,
+          "p99": 354.3,
+          "p999": 391.6
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 114,
+          "max": 323,
+          "count": 947,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "http.response_time.4xx": {
+          "min": 114,
+          "max": 323,
+          "count": 947,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 114,
+          "max": 323,
+          "count": 948,
+          "mean": 137.6,
+          "p50": 130.3,
+          "median": 130.3,
+          "p75": 141.2,
+          "p90": 153,
+          "p95": 190.6,
+          "p99": 252.2,
+          "p999": 295.9
+        },
+        "vusers.session_length": {
+          "min": 198.3,
+          "max": 410.3,
+          "count": 948,
+          "mean": 233,
+          "p50": 228.2,
+          "median": 228.2,
+          "p75": 237.5,
+          "p90": 257.3,
+          "p95": 284.3,
+          "p99": 354.3,
+          "p999": 391.6
+        }
+      }
+    },
+    {
+      "counters": {
+        "http.codes.401": 7,
+        "http.responses": 7,
+        "http.downloaded_bytes": 308,
+        "plugins.metrics-by-endpoint./api/game/score.codes.401": 7,
+        "vusers.failed": 0,
+        "vusers.completed": 7,
+        "http.requests": 1
+      },
+      "rates": {
+        "http.request_rate": 1
+      },
+      "firstCounterAt": 1762686330001,
+      "firstHistogramAt": 1762686330005,
+      "lastCounterAt": 1762686330225,
+      "lastHistogramAt": 1762686330225,
+      "firstMetricAt": 1762686330001,
+      "lastMetricAt": 1762686330225,
+      "period": "1762686330000",
+      "http.request_rate": null,
+      "summaries": {
+        "http.response_time": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "http.response_time.4xx": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "vusers.session_length": {
+          "min": 209.6,
+          "max": 253.1,
+          "count": 7,
+          "mean": 224.3,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 223.7,
+          "p90": 232.8,
+          "p95": 232.8,
+          "p99": 232.8,
+          "p999": 232.8
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "http.response_time.4xx": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "plugins.metrics-by-endpoint.response_time./api/game/score": {
+          "min": 118,
+          "max": 144,
+          "count": 7,
+          "mean": 130,
+          "p50": 127.8,
+          "median": 127.8,
+          "p75": 133,
+          "p90": 141.2,
+          "p95": 141.2,
+          "p99": 141.2,
+          "p999": 141.2
+        },
+        "vusers.session_length": {
+          "min": 209.6,
+          "max": 253.1,
+          "count": 7,
+          "mean": 224.3,
+          "p50": 219.2,
+          "median": 219.2,
+          "p75": 223.7,
+          "p90": 232.8,
+          "p95": 232.8,
+          "p99": 232.8,
+          "p999": 232.8
+        }
+      }
+    }
+  ]
+}

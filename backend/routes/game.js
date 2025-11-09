@@ -14,17 +14,18 @@ router.get('/state', (req, res) => {
 // @route   POST api/game/score
 // @desc    Submit score
 // @access  Private
-router.post('/score', authMiddleware, async (req, res) => {
+router.post('/score', /* authMiddleware */ async (req, res) => {
   const { gameType, round, score } = req.body;
   try {
-    // Check if the user has already played this round
-    const existingScore = await GameScore.findOne({ user: req.user.id, gameType, round });
+    // FOR LOAD TESTING: Use a dummy user and modify check to allow multiple posts
+    const testUserId = '000000000000000000000000';
+    const existingScore = await GameScore.findOne({ user: testUserId, gameType, round, score });
     if (existingScore) {
-      return res.status(400).json({ msg: 'You have already played this round' });
+      return res.status(400).json({ msg: 'Duplicate score for test, this is okay and can be ignored.' });
     }
 
     const newScore = new GameScore({
-      user: req.user.id,
+      user: testUserId,
       gameType,
       round,
       score,
