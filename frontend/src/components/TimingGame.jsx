@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { submitScore } from '../services/api';
+import { socket } from '../services/socket'; // 1. socket 임포트
 import { useGameState } from './GameStateContext';
 import Leaderboard from './Leaderboard';
 
@@ -35,6 +35,19 @@ const TimingGame = () => {
     return () => clearInterval(interval);
   }, [isGameRunning, startTime]);
 
+  // 4. 서버로부터 오는 에러 이벤트를 처리하는 리스너 추가
+  useEffect(() => {
+    const handleScoreError = (error) => {
+      alert(`점수 등록 실패: ${error.message}`);
+    };
+    socket.on('scoreSubmissionError', handleScoreError);
+
+    return () => {
+      socket.off('scoreSubmissionError', handleScoreError);
+    };
+  }, []);
+
+
   const handleStart = () => {
     setStartTime(Date.now());
     setElapsedTime(0);
@@ -43,7 +56,7 @@ const TimingGame = () => {
     setMessage(`${targetTime}초에 가깝게 멈추세요!`);
   };
 
-  const handleStop = async () => {
+  const handleStop = () => { // 3. async 제거
     if (!isGameRunning) return;
 
     const finalTime = Date.now() - startTime;
@@ -52,11 +65,12 @@ const TimingGame = () => {
     setMessage(`오차 시간: ${(calculatedScore / 1000).toFixed(3)}초`);
     setIsGameRunning(false);
 
-    try {
-      await submitScore('timing_game', currentRound, calculatedScore);
-    } catch (error) {
-      alert(`점수 등록 실패: ${error.message}`);
-    }
+    // 3. 웹소켓으로 점수 제출
+    socket.emit('submitScore', {
+      gameType: 'timing_game',
+      round: currentRound,
+      score: calculatedScore
+    });
   };
 
   const renderTimer = () => {

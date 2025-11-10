@@ -137,33 +137,29 @@ router.delete('/leaderboard/:gameType', adminAuth, async (req, res) => {
   }
 });
 
-// @route   POST api/admin/game/visibility
-// @desc    Set game visibility
-// @access  Private (MC)
-router.post('/game/visibility', adminAuth, (req, res) => {
-  const { gameType, isVisible } = req.body;
-  if (req.gameState[gameType]) {
-    req.gameState[gameType].isVisible = isVisible;
-    req.io.emit('gameStateUpdate', req.gameState);
-    res.json(req.gameState);
-  } else {
-    res.status(400).json({ msg: 'Invalid game type' });
-  }
-});
+// The POST /api/admin/game/visibility route has been replaced by WebSocket functionality (socket.on('admin:updateState'))
+// router.post('/game/visibility', adminAuth, (req, res) => {
+//   const { gameType, isVisible } = req.body;
+//   if (req.gameState[gameType]) {
+//     req.gameState[gameType].isVisible = isVisible;
+//     req.io.emit('gameStateUpdate', req.gameState);
+//     res.json(req.gameState);
+//   } else {
+//     res.status(400).json({ msg: 'Invalid game type' });
+//   }
+// });
 
-// @route   POST api/admin/game/set-round
-// @desc    Set the current round for a game
-// @access  Private (MC)
-router.post('/game/set-round', adminAuth, (req, res) => {
-  const { gameType, round } = req.body;
-  if (req.gameState[gameType] && [1, 2, 3].includes(round)) {
-    req.gameState[gameType].currentRound = round;
-    req.io.emit('gameStateUpdate', req.gameState);
-    res.json(req.gameState);
-  } else {
-    res.status(400).json({ msg: 'Invalid game type or round number' });
-  }
-});
+// The POST /api/admin/game/set-round route has been replaced by WebSocket functionality (socket.on('admin:updateState'))
+// router.post('/game/set-round', adminAuth, (req, res) => {
+//   const { gameType, round } = req.body;
+//   if (req.gameState[gameType] && [1, 2, 3].includes(round)) {
+//     req.gameState[gameType].currentRound = round;
+//     req.io.emit('gameStateUpdate', req.gameState);
+//     res.json(req.gameState);
+//   } else {
+//     res.status(400).json({ msg: 'Invalid game type or round number' });
+//   }
+// });
 
 module.exports = router;
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { submitScore } from '../services/api';
+import { socket } from '../services/socket'; // socket 임포트
 import { useGameState } from './GameStateContext';
 import Leaderboard from './Leaderboard';
 
@@ -40,18 +40,29 @@ const FastHandGame = () => {
         setTimeLeft(prev => prev - 1);
       }, 1000);
     } else if (isGameRunning && timeLeft === 0) {
-      (async () => {
-        setIsGameRunning(false);
-        setFinished(true);
-        try {
-          await submitScore('fast_hand_game', currentRound, clicks);
-        } catch (error) {
-          alert(`점수 등록 실패: ${error.message}`);
-        }
-      })();
+      // 웹소켓으로 점수 제출
+      setIsGameRunning(false);
+      setFinished(true);
+      socket.emit('submitScore', {
+        gameType: 'fast_hand_game',
+        round: currentRound,
+        score: clicks
+      });
     }
     return () => clearInterval(gameInterval);
-  }, [isGameRunning, timeLeft, currentRound]);
+  }, [isGameRunning, timeLeft, currentRound, clicks]); // clicks 의존성 추가
+
+  // 서버로부터 오는 에러 이벤트를 처리하는 리스너 추가
+  useEffect(() => {
+    const handleScoreError = (error) => {
+      alert(`점수 등록 실패: ${error.message}`);
+    };
+    socket.on('scoreSubmissionError', handleScoreError);
+
+    return () => {
+      socket.off('scoreSubmissionError', handleScoreError);
+    };
+  }, []);
 
   useEffect(() => {
     let positionInterval;

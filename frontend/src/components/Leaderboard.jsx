@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchLeaderboard } from '../services/api';
+import { fetchLeaderboard } from '../services/api'; // 초기 로드를 위해 유지
+import { socket } from '../services/socket'; // socket 임포트
 
 const Leaderboard = ({ gameType, currentRound, onBack }) => {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -7,6 +8,7 @@ const Leaderboard = ({ gameType, currentRound, onBack }) => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  // 초기 리더보드 데이터를 가져오는 함수 (HTTP API 사용)
   const getLeaderboard = useCallback(async () => {
     if (!gameType || !currentRound) return;
     try {
@@ -23,9 +25,30 @@ const Leaderboard = ({ gameType, currentRound, onBack }) => {
     }
   }, [gameType, currentRound]);
 
+  // 컴포넌트 마운트 시 초기 리더보드 로드
   useEffect(() => {
     getLeaderboard();
   }, [getLeaderboard]);
+
+  // 웹소켓을 통해 실시간 리더보드 업데이트 수신
+  useEffect(() => {
+    const handleLeaderboardUpdate = (data) => {
+      // 현재 컴포넌트가 표시하는 게임 타입과 라운드에 해당하는 업데이트인지 확인
+      if (data.gameType === gameType && data.round === currentRound) {
+        setLeaderboard(data.leaderboard);
+        setPlayersInRound(data.playersInRound);
+        setTotalUsers(data.totalUsers);
+        setLoading(false); // 업데이트가 왔으니 로딩 상태 해제
+      }
+    };
+
+    socket.on('leaderboardUpdate', handleLeaderboardUpdate);
+
+    // 컴포넌트 언마운트 시 리스너 정리
+    return () => {
+      socket.off('leaderboardUpdate', handleLeaderboardUpdate);
+    };
+  }, [gameType, currentRound]); // gameType과 currentRound가 변경될 때마다 리스너 재등록
 
   const gameName = gameType === 'timing_game' ? '지금이니?!' : '손 빠르니??';
 
@@ -66,9 +89,7 @@ const Leaderboard = ({ gameType, currentRound, onBack }) => {
         <button onClick={onBack} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors">
           돌아가기
         </button>
-        <button onClick={getLeaderboard} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors" disabled={loading}>
-          {loading ? '로딩중...' : '새로고침'}
-        </button>
+        {/* 새로고침 버튼은 실시간 업데이트로 인해 제거 */}
       </div>
     </div>
   );

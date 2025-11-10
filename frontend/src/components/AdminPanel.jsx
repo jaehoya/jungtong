@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
+import { socket } from '../services/socket'; // 1. socket 임포트
 import { 
   getUsers,
   deleteUser,
   addUser, 
   addUsersBulk, 
-  resetLeaderboard, 
-  setGameVisibility, 
-  setGameRound 
+  resetLeaderboard,
+  // setGameVisibility, // 2. API 임포트 제거
+  // setGameRound 
 } from '../services/api';
 import { useGameState } from './GameStateContext';
 
 const AdminPanel = () => {
-  const { gameState, updateGameState } = useGameState();
+  const { gameState } = useGameState(); // updateGameState는 더 이상 필요 없음
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [name, setName] = useState('');
@@ -33,23 +34,21 @@ const AdminPanel = () => {
     }
   };
 
-  const handleVisibilityToggle = async (gameType) => {
-    try {
-      const isVisible = !gameState[gameType].isVisible;
-      const newGameState = await setGameVisibility(gameType, isVisible);
-      updateGameState(newGameState);
-    } catch (error) {
-      alert(`오류: ${error.message}`);
-    }
+  // 3. 웹소켓으로 상태 변경 요청
+  const handleVisibilityToggle = (gameType) => {
+    const isVisible = !gameState[gameType].isVisible;
+    socket.emit('admin:updateState', {
+      action: 'SET_VISIBILITY',
+      payload: { gameType, isVisible }
+    });
   };
 
-  const handleSetRound = async (gameType, round) => {
-    try {
-      const newGameState = await setGameRound(gameType, round);
-      updateGameState(newGameState);
-    } catch (error) {
-      alert(`오류: ${error.message}`);
-    }
+  // 3. 웹소켓으로 상태 변경 요청
+  const handleSetRound = (gameType, round) => {
+    socket.emit('admin:updateState', {
+      action: 'SET_ROUND',
+      payload: { gameType, round }
+    });
   };
 
   const handleResetLeaderboard = async (gameType, round) => {

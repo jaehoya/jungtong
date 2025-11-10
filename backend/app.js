@@ -5,6 +5,9 @@ const path = require('path');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
+const jwt = require('jsonwebtoken');
+const GameScore = require('./models/GameScore');
+const User = require('./models/User');
 
 const app = express();
 const server = http.createServer(app);
@@ -14,7 +17,6 @@ const ALLOWED_ORIGINS = [
   "http://localhost:5173"
 ];
 
-// Socket.IO server setup for production
 const io = new Server(server, {
   cors: {
     origin: ALLOWED_ORIGINS,
@@ -23,9 +25,23 @@ const io = new Server(server, {
   transports: ['websocket', 'polling']
 });
 
+io.use((socket, next) => {
+  const token = socket.handshake.auth.token;
+  if (!token) {
+    return next(new Error('Authentication error'));
+  }
+  try {
+    // JWT verify will decode the whole user object we signed
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    socket.user = decoded.user; // This includes user.id, user.name, user.isAdmin etc.
+    next();
+  } catch (err) {
+    return next(new Error('Authentication error'));
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
-// Global game state
 let gameState = {
   timingGame: {
     currentRound: 1,
@@ -37,48 +53,98 @@ let gameState = {
   },
 };
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Pass io and gameState to all API routes
 app.use((req, res, next) => {
   req.io = io;
   req.gameState = gameState;
   next();
 });
 
-// Define Routes with granular CORS
 const corsMiddleware = cors({ origin: ALLOWED_ORIGINS });
 app.use('/api/auth', corsMiddleware, require('./routes/auth'));
 app.use('/api/game', corsMiddleware, require('./routes/game'));
 app.use('/api/admin', corsMiddleware, require('./routes/admin'));
 
-// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Catch-all for HTML5 History Mode
 app.get(/^(?!\/api).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Socket.io connection
 io.on('connection', (socket) => {
-  console.log('A user connected');
-  // Send the current game state to the newly connected client
+  console.log('A user connected:', socket.user.id, 'isAdmin:', socket.user.isAdmin);
   socket.emit('gameStateUpdate', gameState);
 
+  socket.on('submitScore', async ({ gameType, round, score }) => {
+    try {
+      const userId = socket.user.id;
+      const existingScore = await GameScore.findOne({ user: userId, gameType, round });
+      if (existingScore) {
+        console.log(`User ${userId} already submitted score for ${gameType} round ${round}`);
+        return;
+      }
+      const newScore = new GameScore({ user: userId, gameType, round, score });
+      await newScore.save();
+      console.log(`Score saved for user ${userId}`);
+
+      const sortOrder = gameType === 'timing_game' ? 1 : -1;
+      const [leaderboard, playersInRound, totalUsers] = await Promise.all([
+        GameScore.find({ gameType, round }).sort({ score: sortOrder }).limit(10).populate('user', ['name', 'studentId']),
+        GameScore.countDocuments({ gameType, round }),
+        User.countDocuments()
+      ]);
+      const leaderboardData = { leaderboard, playersInRound, totalUsers };
+      io.emit('leaderboardUpdate', { gameType, round, ...leaderboardData });
+      console.log(`Leaderboard updated and emitted for ${gameType} round ${round}`);
+    } catch (err) {
+      console.error('Socket submitScore error:', err);
+      socket.emit('scoreSubmissionError', { message: '점수 제출 중 오류가 발생했습니다.' });
+    }
+  });
+
+  // 1. 관리자용 이벤트 핸들러 추가
+  socket.on('admin:updateState', (data) => {
+    // 2. 관리자 권한 확인
+    if (!socket.user.isAdmin) {
+      console.log(`Non-admin user ${socket.user.id} attempted to update state.`);
+      return;
+    }
+
+    const { action, payload } = data;
+    console.log(`Admin action: ${action}`, payload);
+
+    // 3. 요청에 따라 gameState 업데이트
+    switch (action) {
+      case 'SET_VISIBILITY':
+        if (gameState[payload.gameType]) {
+          gameState[payload.gameType].isVisible = payload.isVisible;
+        }
+        break;
+      case 'SET_ROUND':
+        if (gameState[payload.gameType] && [1, 2, 3].includes(payload.round)) {
+          gameState[payload.gameType].currentRound = payload.round;
+        }
+        break;
+      default:
+        console.log(`Unknown admin action: ${action}`);
+        return;
+    }
+
+    // 4. 변경된 gameState를 모든 클라이언트에게 전파
+    io.emit('gameStateUpdate', gameState);
+  });
+
   socket.on('disconnect', () => {
-    console.log('User disconnected');
+    console.log('User disconnected:', socket.user.id);
   });
 });
 
-// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected...'))
 .catch(err => console.error(err));
 
-// Start the server
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
