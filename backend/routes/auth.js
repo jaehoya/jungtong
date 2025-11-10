@@ -10,8 +10,11 @@ const User = require('../models/User');
 const jwtSecret = process.env.JWT_SECRET;
 
 if (!jwtSecret) {
-  console.error('FATAL ERROR: JWT_SECRET is not defined.');
-  process.exit(1);
+  console.error('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.error('!!! FATAL ERROR: JWT_SECRET is not defined.            !!!');
+  console.error('!!! The server will run but authentication will fail.  !!!');
+  console.error('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  // process.exit(1); // Temporarily disabled for debugging
 }
 
 // Login
