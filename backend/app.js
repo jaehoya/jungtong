@@ -25,17 +25,28 @@ const io = new Server(server, {
   transports: ['websocket', 'polling']
 });
 
+// 웹소켓 인증 미들웨어 (디버깅 로그 추가)
 io.use((socket, next) => {
   const token = socket.handshake.auth.token;
+  console.log('Socket Auth: Attempting to authenticate connection...');
+
   if (!token) {
+    console.error('Socket Auth Error: No token provided.');
     return next(new Error('Authentication error'));
   }
+
   try {
-    // JWT verify will decode the whole user object we signed
+    console.log('Socket Auth: Verifying token...');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    socket.user = decoded.user; // This includes user.id, user.name, user.isAdmin etc.
+    socket.user = decoded.user;
+    console.log(`Socket Auth: Success! User ${socket.user.id} authenticated.`);
     next();
   } catch (err) {
+    // JWT 에러의 상세 내용을 로그로 출력
+    console.error('Socket Auth Error: Token verification failed.', {
+      errorName: err.name,
+      errorMessage: err.message,
+    });
     return next(new Error('Authentication error'));
   }
 });
