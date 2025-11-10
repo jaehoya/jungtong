@@ -77,15 +77,16 @@ const TimingGame = () => {
     const seconds = (elapsedTime / 1000).toFixed(3);
     let display = seconds;
     let timerClass = "text-6xl font-mono bg-gray-900 p-4 rounded-lg mb-6";
+    let displayClass = ""; // 애니메이션을 적용할 span의 클래스
 
-    if (currentRound === 2 && elapsedTime > 4000) {
+    if (currentRound === 2 && isGameRunning && elapsedTime > 4000) {
       display = "???";
     }
     if (currentRound === 3 && isGameRunning) {
-      timerClass += " animate-spin-180";
+      displayClass += " animate-spin-180"; // span에 애니메이션 적용
     }
 
-    return <div className={timerClass}>{display}</div>;
+    return <div className={timerClass}><span className={displayClass}>{display}</span></div>;
   };
 
   if (showLeaderboard) {
