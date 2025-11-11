@@ -28,9 +28,9 @@ socket.on('disconnect', () => {
 });
 
 socket.on('connect_error', (err) => {
-  // console.error('Socket connection error:', err.message);
+  console.error('Socket connection error:', err.message);
   if (err.data && err.data.details) {
-    // console.error('Authentication details:', err.data.details);
+    console.error('Authentication details:', err.data.details);
   }
   // 인증 실패 시 처리
   if (err.message === 'Authentication error') {

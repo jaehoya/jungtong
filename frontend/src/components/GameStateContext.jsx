@@ -13,7 +13,6 @@ export const GameStateProvider = ({ children }) => {
   useEffect(() => {
     // 2. 중앙 소켓을 사용하여 gameStateUpdate 이벤트 수신
     const handleGameStateUpdate = (newGameState) => {
-      console.log('GameState updated:', newGameState);
       setGameState(newGameState);
     };
 
