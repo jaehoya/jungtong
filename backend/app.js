@@ -19,7 +19,6 @@ const ALLOWED_ORIGINS = [
 ];
 
 const io = new Server(server, {
-  path: "/socket.io/",
   cors: {
     origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]

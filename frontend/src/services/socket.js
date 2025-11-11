@@ -6,7 +6,6 @@ const URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 export const socket = io(URL, {
   autoConnect: false, // 필요에 따라 수동으로 연결을 제어할 수 있습니다.
   transports: ['websocket'],
-  path: "/socket.io/",
   // 연결 시 인증 토큰을 함께 전송합니다.
   auth: {
     token: null
