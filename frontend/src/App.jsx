@@ -4,6 +4,7 @@ import GameSelection from './components/GameSelection';
 import MCPanel from './components/AdminPanel'; // Renamed import
 import { getAuthToken, setAuthToken, decodeToken } from './services/api';
 import { GameStateProvider } from './components/GameStateContext';
+import { socket, connectSocket } from './services/socket';
 
 function App() {
   const [token, setToken] = useState(getAuthToken());
@@ -14,12 +15,19 @@ function App() {
       const decodedUser = decodeToken(token);
       if (decodedUser) {
         setUser(decodedUser.user); // Correctly set the nested user object
+        connectSocket(token);
       } else {
         setUser(null);
       }
     } else {
       setUser(null);
     }
+
+    return () => {
+      if (socket.connected) {
+        socket.disconnect();
+      }
+    };
   }, [token]);
 
   const handleSetToken = (newToken) => {
