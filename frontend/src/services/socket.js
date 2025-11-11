@@ -2,8 +2,9 @@ import { io } from 'socket.io-client';
 
 // 백엔드 서버 주소 (Vite 환경 변수 사용)
 const URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const NAMESPACE_URL = `${URL}/jungtong`;
 
-export const socket = io(URL, {
+export const socket = io(NAMESPACE_URL, {
   autoConnect: false, // 필요에 따라 수동으로 연결을 제어할 수 있습니다.
   transports: ['websocket'],
   // 연결 시 인증 토큰을 함께 전송합니다.
