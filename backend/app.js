@@ -86,9 +86,9 @@ app.use('/api/admin', corsMiddleware, require('./routes/admin'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get(/^(?!\/api).*$/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// app.get(/^(?!\/api).*$/, (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 
 jungtong_io.on('connection', (socket) => {
   // console.log('A user connected:', socket.user.id, 'isAdmin:', socket.user.isAdmin);
