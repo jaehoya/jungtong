@@ -26,10 +26,8 @@ const io = new Server(server, {
   transports: ['websocket', 'polling']
 });
 
-const jungtong_io = io.of("/jungtong");
-
 // 웹소켓 인증 미들웨어 (디버깅 로그 추가)
-jungtong_io.use((socket, next) => {
+io.use((socket, next) => {
   const token = socket.handshake.auth.token;
   // console.log('Socket Auth: New connection attempt.');
   // console.log('Socket Handshake:', JSON.stringify(socket.handshake, null, 2));
@@ -74,7 +72,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  req.io = jungtong_io;
+  req.io = io;
   req.gameState = gameState;
   next();
 });
@@ -86,11 +84,11 @@ app.use('/api/admin', corsMiddleware, require('./routes/admin'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.get(/^(?!\/api).*$/, (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
+app.get(/^(?!\/api).*$/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-jungtong_io.on('connection', (socket) => {
+io.on('connection', (socket) => {
   // console.log('A user connected:', socket.user.id, 'isAdmin:', socket.user.isAdmin);
   socket.emit('gameStateUpdate', gameState);
 
@@ -113,7 +111,7 @@ jungtong_io.on('connection', (socket) => {
         User.countDocuments()
       ]);
       const leaderboardData = { leaderboard, playersInRound, totalUsers };
-      jungtong_io.emit('leaderboardUpdate', { gameType, round, ...leaderboardData });
+      io.emit('leaderboardUpdate', { gameType, round, ...leaderboardData });
       console.log(`Leaderboard updated and emitted for ${gameType} round ${round}`);
     } catch (err) {
       console.error('Socket submitScore error:', err);
@@ -150,7 +148,7 @@ jungtong_io.on('connection', (socket) => {
     }
 
     // 4. 변경된 gameState를 모든 클라이언트에게 전파
-    jungtong_io.emit('gameStateUpdate', gameState);
+    io.emit('gameStateUpdate', gameState);
   });
 
   socket.on('disconnect', () => {
