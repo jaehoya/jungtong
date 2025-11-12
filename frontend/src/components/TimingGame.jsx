@@ -70,7 +70,7 @@ const TimingGame = () => {
       display = "???";
     }
     if (currentRound === 3 && isGameRunning) {
-      displayTextClass = "animate-spin-180";
+      displayTextClass = "animate-spin-180 inline-block";
     }
 
     return <div className={timerClass}><span className={displayTextClass}>{display}</span></div>;
