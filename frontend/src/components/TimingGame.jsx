@@ -47,6 +47,7 @@ const TimingGame = () => {
     if (!isGameRunning) return;
 
     const finalTime = Date.now() - startTime;
+    setElapsedTime(finalTime);
     const calculatedScore = Math.abs(targetTime * 1000 - finalTime);
     setScore(calculatedScore);
     setMessage(`오차 시간: ${(calculatedScore / 1000).toFixed(3)}초`);
@@ -63,15 +64,16 @@ const TimingGame = () => {
     const seconds = (elapsedTime / 1000).toFixed(3);
     let display = seconds;
     let timerClass = "text-6xl font-mono bg-gray-900 p-4 rounded-lg mb-6";
+    let displayTextClass = "";
 
-    if (currentRound === 2 && elapsedTime > 4000) {
+    if (currentRound === 2 && elapsedTime > 4000 && isGameRunning) {
       display = "???";
     }
     if (currentRound === 3 && isGameRunning) {
-      timerClass += " animate-spin-180";
+      displayTextClass = "animate-spin-180";
     }
 
-    return <div className={timerClass}>{display}</div>;
+    return <div className={timerClass}><span className={displayTextClass}>{display}</span></div>;
   };
 
   if (showLeaderboard) {
