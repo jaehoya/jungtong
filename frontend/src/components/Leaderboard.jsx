@@ -67,7 +67,7 @@ const Leaderboard = ({ gameType, currentRound, onBack }) => {
           돌아가기
         </button>
         <button onClick={getLeaderboard} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors" disabled={loading}>
-          {loading ? '로딩중...' : '새로고침'}
+          {loading ? '로딩중...' : '점수 불러오기'}
         </button>
       </div>
     </div>

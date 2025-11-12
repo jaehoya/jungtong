@@ -3,7 +3,8 @@ import Auth from './components/Auth';
 import GameSelection from './components/GameSelection';
 import MCPanel from './components/AdminPanel'; // Renamed import
 import { getAuthToken, setAuthToken, decodeToken } from './services/api';
-import { GameStateProvider } from './components/GameStateContext';
+import { GameStateProvider } 
+from './components/GameStateContext';
 
 function App() {
   const [token, setToken] = useState(getAuthToken());
@@ -31,6 +32,10 @@ function App() {
     handleSetToken(null);
   };
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
     <GameStateProvider>
       <div className="App bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
@@ -40,12 +45,15 @@ function App() {
           <div className="w-full max-w-4xl mx-auto">
             <div className="flex justify-end items-center mb-4">
               {user && <p className="mr-4">환영합니다, {user.name}님!</p>}
+              <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                로그아웃
+              </button>
             </div>
             <GameSelection />
             {user && user.isAdmin && <MCPanel />}
             <div className="mt-8 text-center">
-              <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                로그아웃
+              <button onClick={handleRefresh} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                새로고침
               </button>
             </div>
           </div>

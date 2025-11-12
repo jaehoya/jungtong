@@ -126,7 +126,7 @@ const FastHandGame = () => {
 
     // Button classes and styles based on round
     const isMovingButton = currentRound === 2 || currentRound === 3;
-    let buttonClass = 'absolute font-bold rounded-lg transition-all duration-100 text-white';
+    let buttonClass = 'absolute font-bold rounded-lg transition-all duration-100 text-white select-none';
     
     if (currentRound === 1) {
       buttonClass += ' py-8 px-14 text-3xl'; // Larger button for round 1
