@@ -21,7 +21,7 @@ const ALLOWED_ORIGINS = [
 const io = new Server(server, {
   path: "/jungtong-socket/",
   cors: {
-    origin: ALLOWED_ORIGINS,
+    origin: "*",
     methods: ["GET", "POST"]
   },
   transports: ['websocket', 'polling']
