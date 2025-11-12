@@ -17,7 +17,7 @@ const FastHandGame = () => {
   const colorTimeoutRef = useRef(null);
 
   const currentRound = gameState?.fastHandGame?.currentRound || 1;
-  const timeLimit = currentRound === 3 ? 20 : (currentRound === 2 ? 15 : 10); // R1: 10s, R2: 15s, R3: 20s
+  const timeLimit = currentRound === 3 ? 20 : (currentRound === 2 ? 10 : 10); // R1: 10s, R2: 15s, R3: 20s
 
   const resetGameState = useCallback(() => {
     setClicks(0);
