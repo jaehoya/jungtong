@@ -22,6 +22,7 @@ const io = new Server(server, {
     origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
   },
+  allowEIO3: true,
   transports: ['websocket', 'polling']
 });
 
@@ -66,6 +67,7 @@ let gameState = {
   },
 };
 
+app.use(cors({ origin: ALLOWED_ORIGINS }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -80,10 +82,9 @@ app.use((req, res, next) => {
   next();
 });
 
-const corsMiddleware = cors({ origin: ALLOWED_ORIGINS });
-app.use('/api/auth', corsMiddleware, require('./routes/auth'));
-app.use('/api/game', corsMiddleware, require('./routes/game'));
-app.use('/api/admin', corsMiddleware, require('./routes/admin'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/game', require('./routes/game'));
+app.use('/api/admin', require('./routes/admin'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
