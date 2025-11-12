@@ -19,6 +19,7 @@ const ALLOWED_ORIGINS = [
 ];
 
 const io = new Server(server, {
+  path: "/jungtong-socket/",
   cors: {
     origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
