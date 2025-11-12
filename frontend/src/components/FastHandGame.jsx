@@ -55,41 +55,41 @@ const FastHandGame = () => {
 
   useEffect(() => {
     let positionInterval;
-
-    const scheduleColorChange = () => {
-      // Random delay between 0.2 and 1.0 seconds
-      const delay = 200 + Math.random() * 800;
-      colorTimeoutRef.current = setTimeout(() => {
-        setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
-        // Continue the loop only if the game is still running
-        if (isGameRunning) {
-          scheduleColorChange();
-        }
-      }, delay);
-    };
-
     if (isGameRunning) {
       if (currentRound === 2) {
         positionInterval = setInterval(() => {
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
         }, 1200); // Round 2: moves every 1.2 seconds
       } else if (currentRound === 3) {
-        // Movement at a fixed rate
         positionInterval = setInterval(() => {
           setPosition({ top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%` });
         }, 900); // Round 3: moves every 0.9 seconds
-        
-        // Start the random color change loop
-        scheduleColorChange();
       }
     }
-
-    // Cleanup function
-    return () => {
-      clearInterval(positionInterval);
-      clearTimeout(colorTimeoutRef.current);
-    };
+    return () => clearInterval(positionInterval);
   }, [isGameRunning, currentRound]);
+
+  useEffect(() => {
+    if (currentRound !== 3 || !isGameRunning) {
+      clearTimeout(colorTimeoutRef.current);
+      return;
+    }
+
+    let delay;
+    if (buttonColor === 'bg-green-500') {
+      // Green is showing, make it last long.
+      delay = 1500 + Math.random() * 1000; // 1.5s to 2.5s
+    } else {
+      // Red is showing, make it short.
+      delay = 200 + Math.random() * 800; // 0.2s to 1.0s
+    }
+
+    colorTimeoutRef.current = setTimeout(() => {
+      setButtonColor(prev => prev === 'bg-green-500' ? 'bg-red-500' : 'bg-green-500');
+    }, delay);
+
+    return () => clearTimeout(colorTimeoutRef.current);
+  }, [isGameRunning, currentRound, buttonColor]);
 
   const handleStart = () => {
     resetGameState();
