@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { fetchLeaderboard } from '../services/api'; // 초기 로드를 위해 유지
-import { socket } from '../services/socket'; // socket 임포트
+
 
 const Leaderboard = ({ gameType, currentRound, onBack }) => {
   const [leaderboard, setLeaderboard] = useState([]);

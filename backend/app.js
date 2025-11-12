@@ -13,43 +13,31 @@ const app = express();
 const server = http.createServer(app);
 const ALLOWED_ORIGINS = [
   "https://jungtongbam.vercel.app",
-  "https://jungtongbam-jaehoyas-projects.vercel.app",
   "http://localhost:5173",
   "https://jungtongbam.onrender.com"
 ];
 
 const io = new Server(server, {
-  path: "/jungtong-socket/",
   cors: {
-    origin: "*",
+    origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
   },
-  transports: ['websocket']
+  transports: ['websocket', 'polling']
 });
 
 // 웹소켓 인증 미들웨어 (디버깅 로그 추가)
 io.use((socket, next) => {
   const token = socket.handshake.auth.token;
-  console.log('Socket Auth: New connection attempt.');
-  console.log('Socket Handshake:', JSON.stringify(socket.handshake, null, 2));
-
   if (!token) {
-    console.error('Socket Auth Error: No token provided.');
     return next(new Error('Authentication error'));
   }
 
   try {
-    console.log('Socket Auth: Verifying token...');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     socket.user = decoded.user;
-    console.log(`Socket Auth: Success! User ${socket.user.id} authenticated.`);
     next();
   } catch (err) {
-    // JWT 에러의 상세 내용을 로그로 출력
-    console.error('Socket Auth Error: Token verification failed.', {
-      errorName: err.name,
-      errorMessage: err.message,
-    });
+    
     const authError = new Error('Authentication error');
     authError.data = { details: err.message };
     return next(authError);
