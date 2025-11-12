@@ -103,16 +103,6 @@ io.on('connection', (socket) => {
       const newScore = new GameScore({ user: userId, gameType, round, score });
       await newScore.save();
       console.log(`Score saved for user ${userId}`);
-
-      const sortOrder = gameType === 'timing_game' ? 1 : -1;
-      const [leaderboard, playersInRound, totalUsers] = await Promise.all([
-        GameScore.find({ gameType, round }).sort({ score: sortOrder }).limit(10).populate('user', ['name', 'studentId']),
-        GameScore.countDocuments({ gameType, round }),
-        User.countDocuments()
-      ]);
-      const leaderboardData = { leaderboard, playersInRound, totalUsers };
-      io.emit('leaderboardUpdate', { gameType, round, ...leaderboardData });
-      console.log(`Leaderboard updated and emitted for ${gameType} round ${round}`);
     } catch (err) {
       console.error('Socket submitScore error:', err);
       socket.emit('scoreSubmissionError', { message: '점수 제출 중 오류가 발생했습니다.' });

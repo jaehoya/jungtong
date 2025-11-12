@@ -36,25 +36,23 @@ router.get('/state', (req, res) => {
 // @route   GET api/game/leaderboard/:gameType/:round
 // @desc    Get leaderboard for a specific game and round
 // @access  Public
-// NOTE: This route is primarily replaced by WebSocket updates (io.emit('leaderboardUpdate')).
-// It might still be used for initial leaderboard loads. Can be removed if initial load is also handled via WebSockets.
-// router.get('/leaderboard/:gameType/:round', async (req, res) => {
-//   try {
-//     const { gameType, round } = req.params;
-//     const sortOrder = gameType === 'timing_game' ? 1 : -1;
-//     const [leaderboard, playersInRound, totalUsers] = await Promise.all([
-//       GameScore.find({ gameType, round })
-//         .sort({ score: sortOrder })
-//         .limit(10)
-//         .populate('user', ['name', 'studentId']),
-//       GameScore.countDocuments({ gameType, round }),
-//       User.countDocuments()
-//     ]);
-//     res.json({ leaderboard, playersInRound, totalUsers });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
+router.get('/leaderboard/:gameType/:round', async (req, res) => {
+  try {
+    const { gameType, round } = req.params;
+    const sortOrder = gameType === 'timing_game' ? 1 : -1;
+    const [leaderboard, playersInRound, totalUsers] = await Promise.all([
+      GameScore.find({ gameType, round })
+        .sort({ score: sortOrder })
+        .limit(10)
+        .populate('user', ['name', 'studentId']),
+      GameScore.countDocuments({ gameType, round }),
+      User.countDocuments()
+    ]);
+    res.json({ leaderboard, playersInRound, totalUsers });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;
