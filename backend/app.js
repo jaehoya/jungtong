@@ -28,16 +28,25 @@ const io = new Server(server, {
 // 웹소켓 인증 미들웨어 (디버깅 로그 추가)
 io.use((socket, next) => {
   const token = socket.handshake.auth.token;
+  // console.log('Socket Auth: New connection attempt.');
+
   if (!token) {
+    // console.error('Socket Auth Error: No token provided.');
     return next(new Error('Authentication error'));
   }
 
   try {
+    // console.log('Socket Auth: Verifying token...');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     socket.user = decoded.user;
+    // console.log(`Socket Auth: Success! User ${socket.user.id} authenticated.`);
     next();
   } catch (err) {
-    
+    // JWT 에러의 상세 내용을 로그로 출력
+    // console.error('Socket Auth Error: Token verification failed.', {
+    //   errorName: err.name,
+    //   errorMessage: err.message,
+    // });
     const authError = new Error('Authentication error');
     authError.data = { details: err.message };
     return next(authError);
@@ -59,6 +68,11 @@ let gameState = {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 app.use((req, res, next) => {
   req.io = io;
