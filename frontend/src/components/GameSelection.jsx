@@ -37,7 +37,14 @@ const GameSelection = () => {
   }
 
   if (viewingLeaderboard) {
-    return <Leaderboard gameType={viewingLeaderboard} onBack={handleBack} />;
+    // viewingLeaderboard is 'timingGame' or 'fastHandGame'
+    const gameData = gameState[viewingLeaderboard];
+    const currentRound = gameData ? gameData.currentRound : 1;
+    
+    // Convert camelCase to snake_case for the API
+    const gameTypeForApi = viewingLeaderboard.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+
+    return <Leaderboard gameType={gameTypeForApi} currentRound={currentRound} onBack={handleBack} />;
   }
 
   return (
