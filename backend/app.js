@@ -24,7 +24,7 @@ const io = new Server(server, {
     origin: "*",
     methods: ["GET", "POST"]
   },
-  transports: ['websocket', 'polling']
+  transports: ['websocket']
 });
 
 // 웹소켓 인증 미들웨어 (디버깅 로그 추가)
